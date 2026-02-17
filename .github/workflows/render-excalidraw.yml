@@ -1,0 +1,29 @@
+name: Render and Commit Excalidraw Files
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: 
+
+jobs:
+  render-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Render Excalidraw files to PNG
+        uses: ashfordhill/action-excalidraw-to-png@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          input-dir: '.'
+      
+      - name: Commit rendered images
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add '*.png'
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: update rendered excalidraw images'
+            git push
+          fi
