@@ -15,7 +15,9 @@ I thought I could use this [thermal receipt printer](https://www.ebay.com/itm/22
   <img src="docs/chaos-setup.png" width="400" style="margin:0 8px;" />
 </div>
 
-*The setup that would be abandoned*
+<div align="center"><em>The setup that would be abandoned</em></div>
+
+<br>
 
 Unfortunately I'm a total noob with this stuff. While I was able to get a signal of successful printer recognition from the PI, the thermal printer was supposedly undervolted. In my ignorance, ended up frying the poor thing.
 
@@ -24,26 +26,33 @@ Unfortunately I'm a total noob with this stuff. While I was able to get a signal
   <img src="docs/burnt.png" width="400" style="margin:0 8px;" />
 </div>
 
-*Burning smell followed by the above, on the thermal printer*
+<div align="center"><em>Burning smell followed by the above, on the thermal printer</em></div>
+
+<br>
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
   <img src="docs/cleaned.png" width="400" style="margin:0 8px;" />
 </div>
 
-*Tried unsoldering the part where they melted together. Nope. RIP.*
+<div align="center"><em>Tried unsoldering the part where they melted together. Nope. RIP.</em></div>
 
+<br>
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
   <img src="docs/no-gps-signal.gif" width="400" style="margin:0 8px;" />
 </div>
 
-*I thought I could get GPS coordinates via Adafruit Ultimate GPS. But you need satellite signal to get them successful. Otherwise it just waits forever. Who woulda thought; that's gonna be a problem.*
+<div align="center"><em>I thought I could get GPS coordinates via Adafruit Ultimate GPS. But you need satellite signal to get them successful. Otherwise it just waits forever. Who woulda thought; that's gonna be a problem.</em></div>
+
+<br>
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
   <img src="docs/receipts.jpg" width="400" style="margin:0 8px;" />
 </div>
 
-*Turns out the thermal receipt printer was unlikely to product good quality QR codes on adhesive paper. Yay, burning money!*
+<div align="center"><em>Turns out the thermal receipt printer was unlikely to product good quality QR codes on adhesive paper. Yay, burning money!</em></div>
+
+<br>
 
 For now, fallback to phone hotspot + PI and use the phone GPS. I ended up using an existing, fancy label printer I happened to have access to. [Zebra printers have their own proprietary cmds through ZPL that even help you generate QR codes](https://support-new.zebra.com/article/000032617).
 
@@ -51,7 +60,9 @@ For now, fallback to phone hotspot + PI and use the phone GPS. I ended up using 
   <img src="docs/zebra-pi.png" width="400" style="margin:0 8px;" />
 </div>
 
-*Not the most lightweight but useable for experimentation*
+<div align="center"><em>Not the most lightweight but useable for experimentation</em></div>
+
+<br>
 
 I was able to get the PI to via sending commands to the serial connection on the printer and printed a nice 'hello world' (no picture, RIP). And now the rest is non-complex software I'll eventually get around to vibe coding, something something server hosting. Less exciting bits.
 
