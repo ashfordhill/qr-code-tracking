@@ -8,6 +8,8 @@ from pydantic import BaseModel, field_validator
 
 import config
 from gps_store import gps_store
+from print_flow import run_print_flow
+from gpio_handler import setup_gpio, cleanup_gpio
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,6 +18,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = FastAPI()
+
+
+@app.on_event("startup")
+async def on_startup() -> None:
+    setup_gpio()
+
+
+@app.on_event("shutdown")
+async def on_shutdown() -> None:
+    cleanup_gpio()
 
 
 class GpsPayload(BaseModel):
@@ -60,6 +72,12 @@ async def get_health() -> dict:
         "hasGps": has_gps,
         "latestGpsAgeSeconds": round(age, 2) if age is not None else None,
     }
+
+
+@app.post("/print")
+async def post_print() -> dict:
+    await run_print_flow()
+    return {"ok": True}
 
 
 if __name__ == "__main__":

@@ -67,7 +67,8 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 
 ---
 
-### [ ] Step: Pi Service — print flow, GPIO handler, POST /print endpoint
+### [x] Step: Pi Service — print flow, GPIO handler, POST /print endpoint
+<!-- chat-id: cce97e38-84a5-46a3-b3b4-e60fa2ad15a1 -->
 
 - `pi/print_flow.py` — 7-step print flow with asyncio.Lock concurrency guard, structured error logging (NO_GPS_AVAILABLE, GPS_STALE, BACKEND_REQUEST_FAILED, BACKEND_INVALID_RESPONSE, PRINTER_SEND_FAILED)
 - `pi/gpio_handler.py` — RPi.GPIO setup with bouncetime debounce; graceful fallback if RPi.GPIO unavailable; calls print flow via asyncio
