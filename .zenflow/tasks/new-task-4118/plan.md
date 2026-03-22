@@ -26,7 +26,8 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 
 ---
 
-### [ ] Step: Cloudflare Worker — slug, DB helpers, POST /api/labels
+### [x] Step: Cloudflare Worker — slug, DB helpers, POST /api/labels
+<!-- chat-id: 5161f430-f6af-43f2-a760-9d809ddfb7c2 -->
 
 - `worker/src/slug.ts` — slug generation (8–10 chars, [A-Za-z0-9], retry on collision)
 - `worker/src/db.ts` — D1 query helper types
