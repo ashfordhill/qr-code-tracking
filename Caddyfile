@@ -1,3 +1,0 @@
-qr.ashhill.dev {
-  reverse_proxy api:8000
-}
