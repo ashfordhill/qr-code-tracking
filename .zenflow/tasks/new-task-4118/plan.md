@@ -89,7 +89,8 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 
 ---
 
-### [ ] Step: Final integration check and report
+### [x] Step: Final integration check and report
+<!-- chat-id: 9dabf6c8-3371-4957-ab36-8b073526112d -->
 
 - Update `.gitignore` with all generated artifact paths
 - Verify worker type check and wrangler dev smoke test
