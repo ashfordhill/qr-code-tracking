@@ -58,7 +58,8 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 
 ---
 
-### [ ] Step: Pi Service — ZPL generation and printer module
+### [x] Step: Pi Service — ZPL generation and printer module
+<!-- chat-id: a3a8a9c8-ce5f-4d14-8eca-af80dfd0e1f1 -->
 
 - `pi/zpl.py` — pure `generate_zpl(url: str) -> str` function producing ZPL with ^BQN QR code
 - `pi/printer.py` — `send_to_printer(zpl: str)` via TCP socket (configurable host:port)
