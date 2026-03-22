@@ -77,7 +77,8 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 
 ---
 
-### [ ] Step: Mobile GPS web page
+### [x] Step: Mobile GPS web page
+<!-- chat-id: 8e06a554-46ae-49d1-84c3-6037e736e77b -->
 
 - `web/index.html` — self-contained HTML/JS page
   - `navigator.geolocation.watchPosition`
