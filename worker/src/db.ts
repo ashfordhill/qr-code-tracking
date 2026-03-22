@@ -10,6 +10,7 @@ export interface LabelRow {
 
 export interface Env {
   DB: D1Database;
+  GPS_KV: KVNamespace;
   API_KEY: string;
   DOMAIN: string;
 }

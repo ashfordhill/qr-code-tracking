@@ -1,12 +1,21 @@
 import { Env } from './db';
 import { handleGetLabelBySlug, handlePostLabels } from './routes/labels';
 import { handleResolveSlug } from './routes/resolve';
+import { handleGetGpsLatest, handlePostGps } from './routes/gps';
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const { pathname } = url;
     const method = request.method;
+
+    if (method === 'POST' && pathname === '/api/gps') {
+      return handlePostGps(request, env);
+    }
+
+    if (method === 'GET' && pathname === '/api/gps/latest') {
+      return handleGetGpsLatest(request, env);
+    }
 
     if (method === 'POST' && pathname === '/api/labels') {
       return handlePostLabels(request, env);

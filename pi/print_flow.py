@@ -5,7 +5,6 @@ from datetime import datetime, timezone
 import requests
 
 import config
-from gps_store import gps_store
 from zpl import generate_zpl
 from printer import send_to_printer
 
@@ -20,10 +19,7 @@ def _now_iso() -> str:
 
 async def run_print_flow() -> None:
     if _print_lock.locked():
-        logger.info(
-            "PRINT_SKIPPED",
-            extra={"reason": "print already in progress", "time": _now_iso()},
-        )
+        logger.info("PRINT_SKIPPED", extra={"reason": "print already in progress", "time": _now_iso()})
         return
 
     async with _print_lock:
@@ -31,28 +27,40 @@ async def run_print_flow() -> None:
 
 
 def _blocking_print_flow() -> None:
-    # Step 1: Validate GPS exists
-    reading = gps_store.get()
-    if reading is None:
-        logger.error(
-            "NO_GPS_AVAILABLE",
-            extra={"time": _now_iso()},
+    # Step 1: Fetch latest GPS from cloud
+    try:
+        gps_response = requests.get(
+            f"{config.BACKEND_URL}/api/gps/latest",
+            headers={"x-api-key": config.API_KEY},
+            timeout=10,
         )
+        gps_response.raise_for_status()
+        gps_data = gps_response.json()
+    except requests.RequestException as exc:
+        logger.error("NO_GPS_AVAILABLE", extra={"error": str(exc), "time": _now_iso()})
+        return
+
+    latitude = gps_data.get("latitude")
+    longitude = gps_data.get("longitude")
+    stored_at = gps_data.get("storedAt")
+
+    if latitude is None or longitude is None or stored_at is None:
+        logger.error("NO_GPS_AVAILABLE", extra={"response": gps_data, "time": _now_iso()})
         return
 
     # Step 2: Validate freshness
-    age = gps_store.age_seconds()
-    if age is None or age > config.GPS_STALE_THRESHOLD_SECONDS:
-        logger.error(
-            "GPS_STALE",
-            extra={"ageSeconds": round(age, 2) if age is not None else None, "time": _now_iso()},
-        )
+    try:
+        stored_dt = datetime.fromisoformat(stored_at.replace("Z", "+00:00"))
+        age = (datetime.now(timezone.utc) - stored_dt).total_seconds()
+    except (ValueError, AttributeError):
+        logger.error("NO_GPS_AVAILABLE", extra={"reason": "invalid storedAt", "storedAt": stored_at, "time": _now_iso()})
         return
 
-    latitude = reading.latitude
-    longitude = reading.longitude
+    if age > config.GPS_STALE_THRESHOLD_SECONDS:
+        logger.error("GPS_STALE", extra={"ageSeconds": round(age, 2), "time": _now_iso()})
+        return
 
-    # Step 3: Call backend
+    # Step 3: Call backend to create label
     try:
         response = requests.post(
             f"{config.BACKEND_URL}/api/labels",
@@ -70,20 +78,14 @@ def _blocking_print_flow() -> None:
         response.raise_for_status()
         data = response.json()
     except requests.RequestException as exc:
-        logger.error(
-            "BACKEND_REQUEST_FAILED",
-            extra={"error": str(exc), "time": _now_iso()},
-        )
+        logger.error("BACKEND_REQUEST_FAILED", extra={"error": str(exc), "time": _now_iso()})
         return
 
     # Step 4: Validate response
     url = data.get("url") if isinstance(data, dict) else None
     slug = data.get("slug") if isinstance(data, dict) else None
     if not url:
-        logger.error(
-            "BACKEND_INVALID_RESPONSE",
-            extra={"response": data, "time": _now_iso()},
-        )
+        logger.error("BACKEND_INVALID_RESPONSE", extra={"response": data, "time": _now_iso()})
         return
 
     # Step 5: Generate ZPL locally
@@ -93,10 +95,7 @@ def _blocking_print_flow() -> None:
     try:
         send_to_printer(zpl)
     except OSError as exc:
-        logger.error(
-            "PRINTER_SEND_FAILED",
-            extra={"error": str(exc), "url": url, "time": _now_iso()},
-        )
+        logger.error("PRINTER_SEND_FAILED", extra={"error": str(exc), "url": url, "time": _now_iso()})
         return
 
     # Step 7: Log success
@@ -107,6 +106,7 @@ def _blocking_print_flow() -> None:
             "url": url,
             "latitude": latitude,
             "longitude": longitude,
+            "gpsAgeSeconds": round(age, 2),
             "time": _now_iso(),
         },
     )

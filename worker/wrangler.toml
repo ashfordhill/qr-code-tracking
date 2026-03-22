@@ -7,5 +7,9 @@ binding = "DB"
 database_name = "labels-db"
 database_id = "88221d8e-7932-436c-9aab-b218f1619536"
 
+[[kv_namespaces]]
+binding = "GPS_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
 [vars]
 DOMAIN = "https://ashhill.dev"
