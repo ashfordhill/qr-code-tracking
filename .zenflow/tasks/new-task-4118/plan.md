@@ -16,6 +16,7 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 ---
 
 ### [ ] Step: Project scaffolding and .gitignore
+<!-- chat-id: 57b99091-4e85-4187-8c4f-7e746c99d67e -->
 
 - Add `node_modules/`, `dist/`, `.wrangler/`, `*.log`, `.cache/` to `.gitignore`
 - Create `worker/` directory with `package.json`, `tsconfig.json`, `wrangler.toml`
