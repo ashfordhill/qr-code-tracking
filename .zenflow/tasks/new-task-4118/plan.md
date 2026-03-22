@@ -37,7 +37,8 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 
 ---
 
-### [ ] Step: Cloudflare Worker — GET /t/:slug and GET /api/labels/:slug
+### [x] Step: Cloudflare Worker — GET /t/:slug and GET /api/labels/:slug
+<!-- chat-id: 43a2d907-a315-491e-aae1-547687e58cbc -->
 
 - `worker/src/routes/resolve.ts` — GET /t/:slug returns HTML info page or 404 HTML
 - Extend `worker/src/routes/labels.ts` — GET /api/labels/:slug returns JSON
