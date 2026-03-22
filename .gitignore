@@ -26,6 +26,10 @@ dist/
 .cache/
 *.tsbuildinfo
 
+# Wrangler local dev secrets (never commit)
+worker/.dev.vars
+.dev.vars
+
 # IDE
 .vscode/
 .idea/
