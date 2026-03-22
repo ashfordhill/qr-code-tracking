@@ -1,5 +1,22 @@
 # qr-code-tracking
 
+- [qr-code-tracking](#qr-code-tracking)
+  - [Design](#design)
+  - [Hardware](#hardware)
+  - [What is the value in this?](#what-is-the-value-in-this)
+    - [Background Story Time](#background-story-time)
+    - [Getting Better Data](#getting-better-data)
+    - [WAIT, is this actually solving anything?! /confusion](#wait-is-this-actually-solving-anything-confusion)
+    - [Issues with software-only solutions like Bitly](#issues-with-software-only-solutions-like-bitly)
+    - [First, solve the inefficiency](#first-solve-the-inefficiency)
+    - [What are some challenges with this approach?](#what-are-some-challenges-with-this-approach)
+  - [General Use Cases](#general-use-cases)
+    - [Coming Back to Bitly](#coming-back-to-bitly)
+    - [Same-y Situations That Could Benefit](#same-y-situations-that-could-benefit)
+  - [Final musings](#final-musings)
+  - [Also See](#also-see)
+
+
 ## Design 
 
 ![](docs/pi-to-server.png)
@@ -161,24 +178,6 @@ Situations that may be similar to mine:
 
 - Businesses trying to get some type of sign-up/engagement on a small scale (do people by the bar engage with QR codes more frequently?)
 
-
-### Off-topic, thinking like a middleman
-
-Could someone be a Bitly middleman? How?
-
-#### Shipping label brokers
-
-Plenty of businesses don't care to solve all inefficiency issues, leaving to third party business opportunities. For example, the label broker business offers warehouse-friendly, large batch solutions for creating many different shipping labels at once. Places like UPS/USPS/FedEx **do not already have an ideal built-in way to make large volume/batch labels**. They also solve the issue of competitive pricing. 
-
-> UPS/USPS/FedEx **does not care** about keeping track of 'What is the small-time shipping consumer willing to pay today that helps me stay competitive'? These are simply too small of fish to fry. The giant shipping providers care about those massive, large-volume customers. 
-
-Label-brokers like [the Pirate Ship](https://www.pirateship.com/) will offer a good API for bulk label creation for the smaller businesess who need an economic solution to their efficiency problems. Plus they offer competitive shipment label pricing. This is done via becoming a large vendor; all customer shipping labels get grouped under a single vendor name so to a shipping provider (UPS, FedEx, etc.) it looks like The Pirate Ship has the shipping volume of a 'big player'. Big players with consistent high volume of label purchasing get shipping provider discounts & the label broker then passes part of that savings back to customers.
-
-  - ⚠️This is a saturated business and requires up front money to take a loss for competitive label pricing until achieving vendor discounts with shipping giants. Don't do this.
-
-All of that said, I wouldn't be surprised if Bitly didn't offer all desired batch/bulk creation services that some niche areas might want.
-
-
 ## Final musings
 
 QR codes are underutilized IMO. 
@@ -197,8 +196,7 @@ What about a little route instead? Get from A to B.
 
 Back in olden times, people across all demographics really seemed to enjoy Pokemon Go (yes the hype peak is way over, but still!) which got folks engaging in the physical world using digital tools, in a novel way. 
 
-There's gotta be more to uncover with a generic invention like QR codes, though I'm not quite sure yet. Maybe they already exist but just not here; for example, China might be a valuable place to steal ideas from because their digital integration in society is further along than Western society.
-
+There's gotta be more to uncover with a generic invention like QR codes. Maybe they already exist but just not here; for example, China might be a valuable place to steal ideas from because their digital integration in society is further along than Western society.
 
 
 The most exciting thing here is that a single idea can create a lot of spinoffs. 
@@ -207,3 +205,8 @@ The most exciting thing here is that a single idea can create a lot of spinoffs.
   - Maybe that means someone would be willing to pay more money to place ads in that hotspot; it now has hard data to back its value. 
     - Could advertising pricing be dynamic based on its live traffic reports, month-to-month? Are there existing tools to help with that?
       -  Etc, etc., can keep springboarding forever. Not necessarily into totally novel ideas, ofc.
+-  
+
+## Also See
+
+Checkout my [brainstorming repo](https://github.com/ashfordhill/brainstorm) for more pictures + walls of text.
