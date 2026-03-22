@@ -9,7 +9,7 @@ database_id = "88221d8e-7932-436c-9aab-b218f1619536"
 
 [[kv_namespaces]]
 binding = "GPS_KV"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "0686e1ae15ba48d39ca958846f3b1b22"
 
 [vars]
 DOMAIN = "https://ashhill.dev"
