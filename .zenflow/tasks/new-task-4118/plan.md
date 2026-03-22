@@ -47,7 +47,8 @@ Assess task difficulty and produce `spec.md` + detailed implementation plan.
 
 ---
 
-### [ ] Step: Pi Service — core setup, config, GPS store, /gps and /health endpoints
+### [x] Step: Pi Service — core setup, config, GPS store, /gps and /health endpoints
+<!-- chat-id: 02244889-8971-48e2-abea-4028bd7925d5 -->
 
 - `pi/config.py` — all config from env vars with defaults (BACKEND_URL, API_KEY, SOURCE_ID, GPS_STALE_THRESHOLD_SECONDS, PI_PORT, GPIO_PIN, PRINTER_HOST, PRINTER_PORT)
 - `pi/gps_store.py` — thread-safe in-memory GPS store (dataclass + threading.Lock)
