@@ -1,11 +1,11 @@
-name = "mydomain-worker"
+name = "qr-track-worker"
 main = "src/index.ts"
 compatibility_date = "2024-05-29"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "labels-db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "88221d8e-7932-436c-9aab-b218f1619536"
 
 [vars]
-DOMAIN = "https://mydomain.dev"
+DOMAIN = "https://ashhill.dev"
