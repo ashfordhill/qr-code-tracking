@@ -8,8 +8,11 @@ CREATE TABLE IF NOT EXISTS qr_codes (
   location GEOGRAPHY(POINT, 4326),
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
   scan_count INTEGER NOT NULL DEFAULT 0,
-  last_scanned_at TIMESTAMP
+  last_scanned_at TIMESTAMP,
+  print_status TEXT NOT NULL DEFAULT 'none'
 );
+
+CREATE INDEX IF NOT EXISTS idx_qr_codes_print_status ON qr_codes(print_status, created_at);
 
 CREATE INDEX IF NOT EXISTS idx_qr_codes_location ON qr_codes USING GIST(location);
 

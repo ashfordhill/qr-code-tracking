@@ -2,7 +2,7 @@ import os, secrets, hashlib, time
 from contextlib import contextmanager
 from datetime import datetime
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 from pydantic import BaseModel
 from typing import Optional, List
 import psycopg2
@@ -72,22 +72,105 @@ class CreateQrReq(BaseModel):
   coords: Optional[Coords] = None
   dest: Optional[str] = None
 
+class TriggerReq(BaseModel):
+  lat: float
+  lon: float
+  dest: Optional[str] = None
+
 class BoundsQuery(BaseModel):
   min_lat: float
   min_lon: float
   max_lat: float
   max_lon: float
 
-@app.get("/health")
-def health():
-  return {"status": "ok"}
-
-@app.put("/api/qr")
-async def create_qr(req: Request, body: CreateQrReq):
+def require_api_key(req: Request):
   if API_KEY:
     key = req.headers.get("x-api-key")
     if key != API_KEY:
       raise HTTPException(status_code=401, detail="unauthorized")
+
+@app.get("/health")
+def health():
+  return {"status": "ok"}
+
+@app.get("/", response_class=HTMLResponse)
+def index():
+  html_path = os.path.join(os.path.dirname(__file__), "static", "index.html")
+  with open(html_path, "r", encoding="utf-8") as f:
+    return HTMLResponse(content=f.read())
+
+@app.post("/api/trigger")
+async def trigger(body: TriggerReq):
+  qr_id = secrets.token_urlsafe(10).replace("-", "").replace("_", "")[:14]
+  dest = body.dest or DEFAULT_DEST
+  redirect_url = f"{BASE_URL}/q/{qr_id}"
+
+  with db() as conn:
+    with conn.cursor() as cur:
+      cur.execute(
+        "INSERT INTO qr_codes (id, dest, lat, lon, location, print_status) VALUES (%s, %s, %s, %s, ST_SetSRID(ST_MakePoint(%s, %s), 4326)::geography, 'pending')",
+        (qr_id, dest, body.lat, body.lon, body.lon, body.lat),
+      )
+    conn.commit()
+
+  return {"id": qr_id, "redirectUrl": redirect_url}
+
+@app.get("/api/print-jobs/next")
+async def get_next_print_job(req: Request):
+  require_api_key(req)
+
+  with db() as conn:
+    with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+      cur.execute("""
+        SELECT id, dest, lat, lon, created_at
+        FROM qr_codes
+        WHERE print_status = 'pending'
+        ORDER BY created_at ASC
+        LIMIT 1
+      """)
+      row = cur.fetchone()
+      if not row:
+        return {"job": None}
+
+      job_id = row["id"]
+      redirect_url = f"{BASE_URL}/q/{job_id}"
+      zpl = generate_zpl(redirect_url)
+
+      cur.execute(
+        "UPDATE qr_codes SET print_status = 'printing' WHERE id = %s",
+        (job_id,)
+      )
+    conn.commit()
+
+  return {
+    "job": {
+      "id": job_id,
+      "redirectUrl": redirect_url,
+      "lat": row["lat"],
+      "lon": row["lon"],
+      "zpl": zpl,
+    }
+  }
+
+@app.post("/api/print-jobs/{job_id}/done")
+async def mark_print_done(job_id: str, req: Request):
+  require_api_key(req)
+
+  with db() as conn:
+    with conn.cursor() as cur:
+      cur.execute(
+        "UPDATE qr_codes SET print_status = 'printed' WHERE id = %s AND print_status = 'printing'",
+        (job_id,)
+      )
+      if cur.rowcount == 0:
+        raise HTTPException(status_code=404, detail="job not found or not in printing state")
+    conn.commit()
+
+  return {"ok": True}
+
+@app.put("/api/qr")
+async def create_qr(req: Request, body: CreateQrReq):
+  require_api_key(req)
 
   qr_id = secrets.token_urlsafe(10).replace("-", "").replace("_", "")[:14]
   dest = body.dest or DEFAULT_DEST
@@ -119,10 +202,7 @@ async def create_qr(req: Request, body: CreateQrReq):
 
 @app.get("/api/qr/{qr_id}/stats")
 async def get_stats(qr_id: str, req: Request):
-  if API_KEY:
-    key = req.headers.get("x-api-key")
-    if key != API_KEY:
-      raise HTTPException(status_code=401, detail="unauthorized")
+  require_api_key(req)
 
   with db() as conn:
     with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
@@ -144,10 +224,7 @@ async def get_stats(qr_id: str, req: Request):
 
 @app.post("/api/qr/bounds")
 async def get_qr_codes_in_bounds(req: Request, bounds: BoundsQuery):
-  if API_KEY:
-    key = req.headers.get("x-api-key")
-    if key != API_KEY:
-      raise HTTPException(status_code=401, detail="unauthorized")
+  require_api_key(req)
 
   with db() as conn:
     with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
