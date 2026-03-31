@@ -1,0 +1,15 @@
+name = "qr-track-worker"
+main = "src/index.ts"
+compatibility_date = "2024-05-29"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "labels-db"
+database_id = "88221d8e-7932-436c-9aab-b218f1619536"
+
+[[kv_namespaces]]
+binding = "GPS_KV"
+id = "0686e1ae15ba48d39ca958846f3b1b22"
+
+[vars]
+DOMAIN = "https://ashhill.dev"

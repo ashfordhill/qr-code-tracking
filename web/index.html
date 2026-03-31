@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPS Sender</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: 0.02em; }
+    .card {
+      background: #1e293b;
+      border-radius: 1rem;
+      padding: 1.25rem 1.5rem;
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 1rem;
+    }
+    .card h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 0.75rem; }
+    .field { display: flex; flex-direction: column; gap: 0.25rem; margin-bottom: 0.75rem; }
+    .field:last-child { margin-bottom: 0; }
+    .label { font-size: 0.75rem; color: #94a3b8; }
+    .value { font-size: 1rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+    .value.mono { font-family: "SF Mono", "Fira Code", monospace; font-size: 0.9rem; }
+    .value.muted { color: #475569; }
+    input[type="text"], input[type="password"] {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 0.5rem;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+      padding: 0.5rem 0.75rem;
+      width: 100%;
+      outline: none;
+    }
+    input[type="text"]:focus, input[type="password"]:focus { border-color: #6366f1; }
+    button {
+      margin-top: 0.5rem;
+      background: #6366f1;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:active { background: #4f46e5; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+    }
+    .badge.idle     { background: #1e3a5f; color: #93c5fd; }
+    .badge.sending  { background: #1e3a5f; color: #60a5fa; }
+    .badge.success  { background: #14532d; color: #4ade80; }
+    .badge.error    { background: #450a0a; color: #f87171; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .badge.idle    .dot { background: #60a5fa; }
+    .badge.sending .dot { background: #60a5fa; animation: pulse 1s infinite; }
+    .badge.success .dot { background: #4ade80; }
+    .badge.error   .dot { background: #f87171; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .error-msg { font-size: 0.8rem; color: #f87171; margin-top: 0.5rem; word-break: break-all; }
+    .footer { font-size: 0.75rem; color: #475569; margin-top: 0.5rem; }
+    #setupCard { display: block; }
+    #mainCard { display: none; }
+  </style>
+</head>
+<body>
+  <h1>GPS Sender</h1>
+
+  <div class="card" id="setupCard">
+    <h2>API Key</h2>
+    <div class="field">
+      <label class="label" for="apiKeyInput">Enter your API key to start</label>
+      <input type="password" id="apiKeyInput" placeholder="your-api-key" autocomplete="off" />
+      <button id="saveKeyBtn">Save &amp; Start</button>
+    </div>
+  </div>
+
+  <div id="mainCard">
+    <div class="card">
+      <h2>Location</h2>
+      <div class="field">
+        <span class="label">Latitude</span>
+        <span class="value mono" id="lat">—</span>
+      </div>
+      <div class="field">
+        <span class="label">Longitude</span>
+        <span class="value mono" id="lon">—</span>
+      </div>
+      <div class="field">
+        <span class="label">Accuracy</span>
+        <span class="value mono muted" id="acc">—</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Status</h2>
+      <div class="field">
+        <span class="label">Send status</span>
+        <span id="badge" class="badge idle"><span class="dot"></span><span id="badgeText">Waiting for GPS…</span></span>
+        <span class="error-msg" id="errMsg"></span>
+      </div>
+      <div class="field">
+        <span class="label">Last successful send</span>
+        <span class="value muted" id="lastSent">—</span>
+      </div>
+      <div class="field">
+        <button id="clearKeyBtn" style="background:#1e293b;border:1px solid #334155;color:#94a3b8;margin-top:0.25rem;">
+          Clear API Key
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p class="footer">Keep this page open and screen unlocked.</p>
+
+  <script>
+    (function () {
+      const GPS_ENDPOINT = "https://ashhill.dev/api/gps";
+      const STORAGE_KEY = "gps_api_key";
+
+      const setupCard  = document.getElementById("setupCard");
+      const mainCard   = document.getElementById("mainCard");
+      const apiKeyInput = document.getElementById("apiKeyInput");
+      const saveKeyBtn  = document.getElementById("saveKeyBtn");
+      const clearKeyBtn = document.getElementById("clearKeyBtn");
+      const latEl      = document.getElementById("lat");
+      const lonEl      = document.getElementById("lon");
+      const accEl      = document.getElementById("acc");
+      const badge      = document.getElementById("badge");
+      const badgeTx    = document.getElementById("badgeText");
+      const errMsg     = document.getElementById("errMsg");
+      const lastSent   = document.getElementById("lastSent");
+
+      let apiKey = localStorage.getItem(STORAGE_KEY) || "";
+      let isSending = false;
+      let watchId = null;
+
+      function setStatus(state, text, err) {
+        badge.className = "badge " + state;
+        badgeTx.textContent = text;
+        errMsg.textContent = err || "";
+      }
+
+      function showMain() {
+        setupCard.style.display = "none";
+        mainCard.style.display = "block";
+      }
+
+      function showSetup() {
+        mainCard.style.display = "none";
+        setupCard.style.display = "block";
+        apiKeyInput.value = "";
+        if (watchId !== null) {
+          navigator.geolocation.clearWatch(watchId);
+          watchId = null;
+        }
+      }
+
+      saveKeyBtn.addEventListener("click", function () {
+        const val = apiKeyInput.value.trim();
+        if (!val) return;
+        apiKey = val;
+        localStorage.setItem(STORAGE_KEY, apiKey);
+        showMain();
+        startWatching();
+      });
+
+      clearKeyBtn.addEventListener("click", function () {
+        localStorage.removeItem(STORAGE_KEY);
+        apiKey = "";
+        showSetup();
+      });
+
+      async function sendGps(lat, lon, ts) {
+        if (isSending) return;
+        isSending = true;
+        setStatus("sending", "Sending…", "");
+        try {
+          const resp = await fetch(GPS_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": apiKey,
+            },
+            body: JSON.stringify({ latitude: lat, longitude: lon, timestamp: ts }),
+          });
+          if (!resp.ok) {
+            const txt = await resp.text().catch(() => "");
+            setStatus("error", "Error " + resp.status, txt || "Server returned an error.");
+          } else {
+            setStatus("success", "Sent", "");
+            lastSent.textContent = new Date().toLocaleTimeString();
+          }
+        } catch (e) {
+          setStatus("error", "Error", e && e.message ? e.message : String(e));
+        } finally {
+          isSending = false;
+        }
+      }
+
+      function startWatching() {
+        if (!("geolocation" in navigator)) {
+          setStatus("error", "Unavailable", "Geolocation not supported in this browser.");
+          return;
+        }
+
+        setStatus("idle", "Requesting permission…", "");
+
+        watchId = navigator.geolocation.watchPosition(
+          function (pos) {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+            const acc = pos.coords.accuracy;
+            const ts  = new Date(pos.timestamp).toISOString();
+
+            latEl.textContent = lat.toFixed(7);
+            lonEl.textContent = lon.toFixed(7);
+            accEl.textContent = acc != null ? acc.toFixed(1) + " m" : "—";
+
+            sendGps(lat, lon, ts);
+          },
+          function (err) {
+            const msgs = {
+              1: "Permission denied. Enable location access.",
+              2: "Position unavailable.",
+              3: "Location request timed out.",
+            };
+            setStatus("error", "GPS Error", msgs[err.code] || err.message);
+          },
+          { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 }
+        );
+      }
+
+      if (apiKey) {
+        showMain();
+        startWatching();
+      } else {
+        showSetup();
+      }
+    })();
+  </script>
+</body>
+</html>
