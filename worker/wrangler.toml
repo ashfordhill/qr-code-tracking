@@ -13,3 +13,4 @@ id = "0686e1ae15ba48d39ca958846f3b1b22"
 
 [vars]
 DOMAIN = "https://ashhill.dev"
+DEFAULT_DEST = "https://google.com"

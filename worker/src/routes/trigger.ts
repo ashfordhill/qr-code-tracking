@@ -21,7 +21,7 @@ export async function handlePostTrigger(request: Request, env: Env): Promise<Res
     return json({ error: 'Request body must be a JSON object' }, 400);
   }
 
-  const { latitude, longitude } = body as Record<string, unknown>;
+  const { latitude, longitude, dest } = body as Record<string, unknown>;
 
   if (typeof latitude !== 'number' || latitude < -90 || latitude > 90) {
     return json({ error: 'latitude must be a number between -90 and 90' }, 400);
@@ -48,6 +48,7 @@ export async function handlePostTrigger(request: Request, env: Env): Promise<Res
       longitude,
       created_at: createdAt,
       source: 'phone',
+      dest: typeof dest === 'string' ? dest : null,
     });
   } catch {
     return json({ error: 'Database error' }, 500);

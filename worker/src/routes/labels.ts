@@ -31,7 +31,7 @@ export async function handlePostLabels(request: Request, env: Env): Promise<Resp
     return json({ error: 'Request body must be a JSON object' }, 400);
   }
 
-  const { latitude, longitude, source } = body as Record<string, unknown>;
+  const { latitude, longitude, source, dest } = body as Record<string, unknown>;
 
   if (typeof latitude !== 'number' || latitude < -90 || latitude > 90) {
     return json({ error: 'latitude must be a number between -90 and 90' }, 400);
@@ -41,6 +41,9 @@ export async function handlePostLabels(request: Request, env: Env): Promise<Resp
   }
   if (source !== undefined && typeof source !== 'string') {
     return json({ error: 'source must be a string if provided' }, 400);
+  }
+  if (dest !== undefined && typeof dest !== 'string') {
+    return json({ error: 'dest must be a string if provided' }, 400);
   }
 
   const id = crypto.randomUUID();
@@ -61,6 +64,7 @@ export async function handlePostLabels(request: Request, env: Env): Promise<Resp
       longitude,
       created_at: createdAt,
       source: typeof source === 'string' ? source : null,
+      dest: typeof dest === 'string' ? dest : null,
     });
   } catch {
     return json({ error: 'Database error' }, 500);
