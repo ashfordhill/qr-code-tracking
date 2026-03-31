@@ -19,9 +19,9 @@
 
 ## Design 
 
-![](docs/pi-to-server.svg)
+![](.docs/pi-to-server.svg)
 
-![](docs/server-db-to-metrics.svg)
+![](.docs/server-db-to-metrics.svg)
 
 
 ## Hardware
@@ -29,7 +29,7 @@
 I thought I could use this [thermal receipt printer](https://www.ebay.com/itm/226867836141). The printer has to be able to print via commands from Linux. **ESC POS Command Support** is apparently the identifiable search term here.
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src="docs/chaos-setup.png" width="400" style="margin:0 8px;" />
+  <img src=".docs/chaos-setup.png" width="400" style="margin:0 8px;" />
 </div>
 
 <div align="center"><em>The setup that would be abandoned</em></div>
@@ -40,7 +40,7 @@ Unfortunately I'm a total noob with this stuff. While I was able to get a signal
 
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src="docs/burnt.png" width="400" style="margin:0 8px;" />
+  <img src=".docs/burnt.png" width="400" style="margin:0 8px;" />
 </div>
 
 <div align="center"><em>Burning smell followed by the above, on the thermal printer board</em></div>
@@ -48,7 +48,7 @@ Unfortunately I'm a total noob with this stuff. While I was able to get a signal
 <br>
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src="docs/cleaned.png" width="400" style="margin:0 8px;" />
+  <img src=".docs/cleaned.png" width="400" style="margin:0 8px;" />
 </div>
 
 <div align="center"><em>Tried desoldering the part where they melted together. Nope. RIP.</em></div>
@@ -56,7 +56,7 @@ Unfortunately I'm a total noob with this stuff. While I was able to get a signal
 <br>
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src="docs/no-gps-signal.gif" width="400" style="margin:0 8px;" />
+  <img src=".docs/no-gps-signal.gif" width="400" style="margin:0 8px;" />
 </div>
 
 <div align="center"><em>I thought I could get GPS coordinates via Adafruit Ultimate GPS. But you need satellite signal to get them successful. Otherwise it just waits forever. Who woulda thought; that's gonna be a problem indoors.</em></div>
@@ -64,7 +64,7 @@ Unfortunately I'm a total noob with this stuff. While I was able to get a signal
 <br>
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src="docs/receipts.jpg" width="400" style="margin:0 8px;" />
+  <img src=".docs/receipts.jpg" width="400" style="margin:0 8px;" />
 </div>
 
 <div align="center"><em>Turns out the thermal receipt printer was unlikely to product good quality QR codes on adhesive paper anyway. Yay, burning money!</em></div>
@@ -74,7 +74,7 @@ Unfortunately I'm a total noob with this stuff. While I was able to get a signal
 For now, the design will involve utilizing my phone GPS, since I'm going to need my phone's hotspot for the Pi anyway. I also ended up using an existing, fancy label printer I happened to have access to. [Zebra printers have their own proprietary cmds through ZPL that help you generate QR codes](https://support-new.zebra.com/article/000032617).
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src="docs/zebra-pi.png" width="400" style="margin:0 8px;" />
+  <img src=".docs/zebra-pi.png" width="400" style="margin:0 8px;" />
 </div>
 
 <div align="center"><em>Not the most lightweight printer option, but useable for experimentation</em></div>
