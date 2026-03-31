@@ -19,9 +19,9 @@
 
 ## Design 
 
-![](docs/pi-to-server.png)
+![](docs/pi-to-server.svg)
 
-![](docs/server-db-to-metrics.png)
+![](docs/server-db-to-metrics.svg)
 
 
 ## Hardware
