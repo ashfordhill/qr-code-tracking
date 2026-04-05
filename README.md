@@ -2,6 +2,7 @@
 
 - [qr-code-tracking](#qr-code-tracking)
   - [Design](#design)
+    - [V1](#v1)
   - [Hardware](#hardware)
   - [What is the value in this?](#what-is-the-value-in-this)
     - [Background Story Time](#background-story-time)
@@ -16,13 +17,17 @@
   - [Final musings](#final-musings)
   - [Also See](#also-see)
 
-
 ## Design 
 
 ![](.docs/pi-to-server-v2.svg)
 
 ![](.docs/server-db-to-metrics.svg)
 
+### V1
+
+![](.docs/v1-print-button.png)
+
+![](.docs/v1-metrics.png)
 
 ## Hardware
 
