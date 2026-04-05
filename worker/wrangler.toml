@@ -5,7 +5,7 @@ compatibility_date = "2024-05-29"
 [[d1_databases]]
 binding = "DB"
 database_name = "labels-db"
-database_id = "88221d8e-7932-436c-9aab-b218f1619536"
+database_id = "4d443da1-43ee-48bc-848d-1dc2de5ec8"
 
 [[kv_namespaces]]
 binding = "GPS_KV"

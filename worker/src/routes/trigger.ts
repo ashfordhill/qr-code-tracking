@@ -50,8 +50,9 @@ export async function handlePostTrigger(request: Request, env: Env): Promise<Res
       source: 'phone',
       dest: typeof dest === 'string' ? dest : null,
     });
-  } catch {
-    return json({ error: 'Database error' }, 500);
+  } catch (err) {
+    console.error('[trigger] insertLabelPending failed:', err);
+    return json({ error: 'Database error', detail: err instanceof Error ? err.message : String(err) }, 500);
   }
 
   const domain = env.DOMAIN ?? 'https://ashhill.dev';

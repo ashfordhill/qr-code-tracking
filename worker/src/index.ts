@@ -1,5 +1,5 @@
 import { Env } from './db';
-import { handleGetLabelBySlug, handlePostLabels } from './routes/labels';
+import { handleGetLabels, handleGetLabelBySlug, handleGetLabelScans, handlePostLabels } from './routes/labels';
 import { handleResolveSlug } from './routes/resolve';
 import { handleGetGpsLatest, handlePostGps } from './routes/gps';
 import { handlePostTrigger } from './routes/trigger';
@@ -131,8 +131,17 @@ export default {
       return handleGetGpsLatest(request, env);
     }
 
+    if (method === 'GET' && pathname === '/api/labels') {
+      return handleGetLabels(request, env);
+    }
+
     if (method === 'POST' && pathname === '/api/labels') {
       return handlePostLabels(request, env);
+    }
+
+    const apiLabelScansMatch = pathname.match(/^\/api\/labels\/([A-Za-z0-9-]+)\/scans$/);
+    if (method === 'GET' && apiLabelScansMatch) {
+      return handleGetLabelScans(request, env, apiLabelScansMatch[1]);
     }
 
     const apiSlugMatch = pathname.match(/^\/api\/labels\/([A-Za-z0-9]+)$/);

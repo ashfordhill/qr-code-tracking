@@ -1,4 +1,4 @@
-import { Env, getLabelBySlug, insertLabel, slugExists } from '../db';
+import { Env, getAllLabels, getLabelBySlug, getScanHistory, insertLabel, slugExists } from '../db';
 import { generateUniqueSlug } from '../slug';
 
 function json(data: unknown, status = 200): Response {
@@ -74,6 +74,43 @@ export async function handlePostLabels(request: Request, env: Env): Promise<Resp
   const url = `${domain}/t/${slug}`;
 
   return json({ id, slug, url, createdAt }, 201);
+}
+
+export async function handleGetLabels(_request: Request, env: Env): Promise<Response> {
+  let labels;
+  try {
+    labels = await getAllLabels(env.DB);
+  } catch {
+    return json({ error: 'Database error' }, 500);
+  }
+
+  return json({ labels: labels.map((l) => ({
+    id: l.id,
+    slug: l.slug,
+    latitude: l.latitude,
+    longitude: l.longitude,
+    createdAt: l.created_at,
+    source: l.source,
+    dest: l.dest,
+    printStatus: l.print_status,
+    scanCount: l.scan_count,
+    lastScannedAt: l.last_scanned_at,
+  })) });
+}
+
+export async function handleGetLabelScans(
+  _request: Request,
+  env: Env,
+  id: string,
+): Promise<Response> {
+  let scans;
+  try {
+    scans = await getScanHistory(env.DB, id);
+  } catch {
+    return json({ error: 'Database error' }, 500);
+  }
+
+  return json({ scans });
 }
 
 export async function handleGetLabelBySlug(

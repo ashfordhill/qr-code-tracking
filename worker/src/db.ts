@@ -5,7 +5,6 @@ export interface LabelRow {
   longitude: number;
   created_at: string;
   source: string | null;
-  metadata_json: string | null;
   print_status: string;
   dest: string | null;
   scan_count: number;
@@ -22,12 +21,12 @@ export interface Env {
 
 export async function insertLabel(
   db: D1Database,
-  row: Omit<LabelRow, 'metadata_json' | 'print_status' | 'scan_count' | 'last_scanned_at'> & { metadata_json?: string | null },
+  row: Omit<LabelRow, 'print_status' | 'scan_count' | 'last_scanned_at'>,
 ): Promise<void> {
   await db
     .prepare(
-      `INSERT INTO labels (id, slug, latitude, longitude, created_at, source, metadata_json, dest)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO labels (id, slug, latitude, longitude, created_at, source, dest)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
     )
     .bind(
       row.id,
@@ -36,7 +35,6 @@ export async function insertLabel(
       row.longitude,
       row.created_at,
       row.source ?? null,
-      row.metadata_json ?? null,
       row.dest ?? null,
     )
     .run();
@@ -106,18 +104,38 @@ export async function markPrintJobDone(db: D1Database, slug: string): Promise<bo
 
 export async function recordScan(db: D1Database, slug: string): Promise<string | null> {
   const row = await db
-    .prepare(`SELECT dest FROM labels WHERE slug = ?`)
+    .prepare(`SELECT id, dest FROM labels WHERE slug = ?`)
     .bind(slug)
-    .first<{ dest: string | null }>();
+    .first<{ id: string; dest: string | null }>();
 
   if (!row) return null;
 
-  await db
-    .prepare(
-      `UPDATE labels SET scan_count = scan_count + 1, last_scanned_at = datetime('now') WHERE slug = ?`,
-    )
-    .bind(slug)
-    .run();
+  await db.batch([
+    db
+      .prepare(`UPDATE labels SET scan_count = scan_count + 1, last_scanned_at = datetime('now') WHERE id = ?`)
+      .bind(row.id),
+    db
+      .prepare(`INSERT INTO scans (label_id) VALUES (?)`)
+      .bind(row.id),
+  ]);
 
   return row.dest;
+}
+
+export async function getAllLabels(db: D1Database): Promise<LabelRow[]> {
+  const result = await db
+    .prepare(`SELECT * FROM labels ORDER BY created_at DESC`)
+    .all<LabelRow>();
+  return result.results;
+}
+
+export async function getScanHistory(
+  db: D1Database,
+  labelId: string,
+): Promise<{ id: number; scanned_at: string }[]> {
+  const result = await db
+    .prepare(`SELECT id, scanned_at FROM scans WHERE label_id = ? ORDER BY scanned_at DESC`)
+    .bind(labelId)
+    .all<{ id: number; scanned_at: string }>();
+  return result.results;
 }
