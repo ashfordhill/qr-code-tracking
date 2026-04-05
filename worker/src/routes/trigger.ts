@@ -36,8 +36,9 @@ export async function handlePostTrigger(request: Request, env: Env): Promise<Res
   let slug: string;
   try {
     slug = await generateUniqueSlug((s) => slugExists(env.DB, s));
-  } catch {
-    return json({ error: 'Failed to generate unique slug' }, 500);
+  } catch (err) {
+    console.error('[trigger] generateUniqueSlug failed:', err);
+    return json({ error: 'Failed to generate unique slug', detail: err instanceof Error ? err.message : String(err) }, 500);
   }
 
   try {

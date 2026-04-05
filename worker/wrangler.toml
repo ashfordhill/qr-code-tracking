@@ -5,7 +5,7 @@ compatibility_date = "2024-05-29"
 [[d1_databases]]
 binding = "DB"
 database_name = "labels-db"
-database_id = "4d443da1-43ee-48bc-848d-1dc2de5ec8"
+database_id = "4d443da1-43ee-48bc-848d-1dc2de5ec889"
 
 [[kv_namespaces]]
 binding = "GPS_KV"
@@ -13,4 +13,4 @@ id = "0686e1ae15ba48d39ca958846f3b1b22"
 
 [vars]
 DOMAIN = "https://ashhill.dev"
-DEFAULT_DEST = "https://google.com"
+DEFAULT_DEST = "https://cityofberwyn.formstack.com/forms/2023_parkway_tree_program_public_works"
