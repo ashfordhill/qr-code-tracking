@@ -98,11 +98,27 @@ const PHONE_UI_HTML = `<!DOCTYPE html>
 </body>
 </html>`;
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, x-api-key',
+};
+
+function withCors(response: Response): Response {
+  const newHeaders = new Headers(response.headers);
+  for (const [k, v] of Object.entries(CORS_HEADERS)) newHeaders.set(k, v);
+  return new Response(response.body, { status: response.status, headers: newHeaders });
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const { pathname } = url;
     const method = request.method;
+
+    if (method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
 
     if (method === 'GET' && pathname === '/') {
       return new Response(PHONE_UI_HTML, {
@@ -111,42 +127,42 @@ export default {
     }
 
     if (method === 'POST' && pathname === '/api/trigger') {
-      return handlePostTrigger(request, env);
+      return withCors(await handlePostTrigger(request, env));
     }
 
     if (method === 'GET' && pathname === '/api/print-jobs/next') {
-      return handleGetNextPrintJob(request, env);
+      return withCors(await handleGetNextPrintJob(request, env));
     }
 
     const printJobDoneMatch = pathname.match(/^\/api\/print-jobs\/([A-Za-z0-9]+)\/done$/);
     if (method === 'POST' && printJobDoneMatch) {
-      return handleMarkPrintJobDone(request, env, printJobDoneMatch[1]);
+      return withCors(await handleMarkPrintJobDone(request, env, printJobDoneMatch[1]));
     }
 
     if (method === 'POST' && pathname === '/api/gps') {
-      return handlePostGps(request, env);
+      return withCors(await handlePostGps(request, env));
     }
 
     if (method === 'GET' && pathname === '/api/gps/latest') {
-      return handleGetGpsLatest(request, env);
+      return withCors(await handleGetGpsLatest(request, env));
     }
 
     if (method === 'GET' && pathname === '/api/labels') {
-      return handleGetLabels(request, env);
+      return withCors(await handleGetLabels(request, env));
     }
 
     if (method === 'POST' && pathname === '/api/labels') {
-      return handlePostLabels(request, env);
+      return withCors(await handlePostLabels(request, env));
     }
 
     const apiLabelScansMatch = pathname.match(/^\/api\/labels\/([A-Za-z0-9-]+)\/scans$/);
     if (method === 'GET' && apiLabelScansMatch) {
-      return handleGetLabelScans(request, env, apiLabelScansMatch[1]);
+      return withCors(await handleGetLabelScans(request, env, apiLabelScansMatch[1]));
     }
 
     const apiSlugMatch = pathname.match(/^\/api\/labels\/([A-Za-z0-9]+)$/);
     if (method === 'GET' && apiSlugMatch) {
-      return handleGetLabelBySlug(request, env, apiSlugMatch[1]);
+      return withCors(await handleGetLabelBySlug(request, env, apiSlugMatch[1]));
     }
 
     const resolveSlugMatch = pathname.match(/^\/t\/([A-Za-z0-9]+)$/);
