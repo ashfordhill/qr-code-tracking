@@ -19,7 +19,7 @@
 
 ## Design 
 
-![](.docs/pi-to-server.svg)
+![](.docs/pi-to-server-v2.svg)
 
 ![](.docs/server-db-to-metrics.svg)
 
