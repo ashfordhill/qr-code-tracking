@@ -1,21 +1,28 @@
 # qr-code-tracking
 
 - [qr-code-tracking](#qr-code-tracking)
+  - [Privatized](#privatized)
   - [Design](#design)
-    - [V1](#v1)
-  - [Hardware](#hardware)
-  - [What is the value in this?](#what-is-the-value-in-this)
-    - [Background Story Time](#background-story-time)
-    - [Getting Better Data](#getting-better-data)
-    - [WAIT, is this actually solving anything?! /confusion](#wait-is-this-actually-solving-anything-confusion)
-    - [Issues with software-only solutions like Bitly](#issues-with-software-only-solutions-like-bitly)
-    - [First, solve the inefficiency](#first-solve-the-inefficiency)
-    - [What are some challenges with this approach?](#what-are-some-challenges-with-this-approach)
-  - [General Use Cases](#general-use-cases)
-    - [Coming Back to Bitly](#coming-back-to-bitly)
-    - [Same-y Situations That Could Benefit](#same-y-situations-that-could-benefit)
-  - [Final musings](#final-musings)
+  - [2026](#2026)
+    - [Software](#software)
+      - [Improvement Ideas](#improvement-ideas)
+    - [Hardware](#hardware)
+    - [Deployment Notes](#deployment-notes)
+      - [Process](#process)
+        - [Prepping Posters](#prepping-posters)
+        - [Installing Posters](#installing-posters)
+      - [Funnest Install](#funnest-install)
+      - [Poster Provider](#poster-provider)
+      - [QR Scanning Competitors?!](#qr-scanning-competitors)
+  - [2025](#2025)
+    - [Hardware](#hardware-1)
   - [Also See](#also-see)
+
+## Privatized
+
+**⚠️is now documentation-only repo⚠️**
+
+The src code for this project and Cloudflare worker deployments live in a private repo dedicated to tracking my neighborhood's stuff under a specific domain. 
 
 ## Design 
 
@@ -23,13 +30,120 @@
 
 ![](.docs/server-db-to-metrics.svg)
 
-### V1
 
-![](.docs/v1-print-button.png)
+## 2026
 
-![](.docs/v1-metrics.png)
+### Software
 
-## Hardware
+![](.docs/2026-engagement.gif)
+
+#### Improvement Ideas
+
+- A way to delete slugs on my 'QR print button' site. For instance I accidentally pressed the print button with my phone once. Would be nice to rm from database while on the field.
+- A way to mark a poster as 'missing' or 'uninstalled', via the viewer. Prob need to modify the DB schema for that. 
+- Have circle size on map viewer grow by relative scan count; larger dots would mean more engagement and I don't have to use list view or click around to see my most popular posters.
+  - Differentiate posters with 0 scans by color (like grey), on the map viewer. 
+
+### Hardware
+
+<br>
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/raspberry-pi-nes.JPG" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>Raspberry Pi needed housing to avoid damage on the move</em></div>
+<br>
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/hardware-bundle-2026.jpg" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>All the components together. Using a portable power bank for Pi + printer.</em></div>
+<br>
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/backpack.jpeg" width="400" style="margin:0 8px;" />
+</div>
+
+<div align="center"><em>Everything in backpack. ~12lbs total.</em></div>
+
+### Deployment Notes
+
+![](.docs/2026-poster-installed.jpeg)
+
+#### Process
+
+##### Prepping Posters
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/finished-laminating.jpg" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>All done! 12 groups of 10.</em></div>
+<br>
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/slow-lamination.gif" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>Ultra fast lamination. Thanks Amazon.</em></div>
+<br>
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/tape-back-posters.JPG" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>Pre-install with double-sided adhesive. Way easier than bringing tape on 'the field'. Also looks nicer.</em></div>
+<br>
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/berwyn-stamp.jpg" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>Had a stamp made to make things look official-like and scare anyone off from touching my posters (‼️). Used a version with the mayor's name to appeal to him in case there are issues. Everyone likes a lil ego stroking, yknow?</em></div>
+<br>
+
+
+##### Installing Posters
+
+- grab poster
+  - print QR label sticker
+    - attach sticker 
+      - remove adhesive backing on poster
+        - place poster
+          - stamp poster
+            - pack up to next location
+
+
+I didn't experience any bugs.
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/hotspot-pi-connected.jpg" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>Before heading out, I turn Pi on/off and wait to see hotspot connected. Takes around 30 seconds.</em></div>
+<br>
+
+
+#### Funnest Install
+
+Really gets the message across (the tree is dead).
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/2026-poster-install-dead-tree.JPG" width="400" style="margin:0 8px;" />
+</div>
+
+#### Poster Provider
+
+| Provider | Year | Material | Cost (pre-tax, pre-shipping) | Quantity | Notes |
+|----------|------|----------|------------------------------|----------|-------|
+| UPrinting | 2026 | 14 pt. Cardstock Gloss | $56.52 | 100 | Included 20 extras |
+| NextDayFlyers | 2025 | 100 lb. Paper w/ Gloss | $32.92 | 50 | |
+
+> UPrinting definitely wins this one. The 14 pt. cardstock was thicker and higher-end feeling. It was their cheapest option. Also the 20 freebies was 👌
+
+#### QR Scanning Competitors?!
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/someone-else-advertising-with-qr.jpg" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>Someone else could prob use some fancier posters to advertise their business. Rain has been crazy this year. Also the design could use some love; this almost looks like an invoice.</em></div>
+<br>
+
+## 2025
+
+### Hardware
 
 I thought I could use this [thermal receipt printer](https://www.ebay.com/itm/226867836141). The printer has to be able to print via commands from Linux. **ESC POS Command Support** is apparently the identifiable search term here.
 
@@ -88,133 +202,7 @@ For now, the design will involve utilizing my phone GPS, since I'm going to need
 
 I was able to get the Pi to print via sending commands to the serial connection on the printer and printed a nice 'hello world' (no picture, RIP). And now the rest is non-complex software I'll eventually get around to vibe coding, something something server hosting. Less exciting bits.
 
-## What is the value in this?
-
-### Background Story Time
-
-I [created posters](https://github.com/ashfordhill/make-a-tree-flyer) that contained a QR code & contact information to try and get people to engage with a local government service for tree-planting.
-
-My method for distributing these posters involved me physically going around on walks and leaving posters in random spots. I ordered 100 posters printed in full page color and high-gloss, which ran about $30.
-
-A lot of questions spawned from this lil venture.
-
->Which places were worth placing posters to get the most bang for my buck? 
-
-- The blocks with more duplex-style, multi-family homes? 
-- The parks?
-- In the windows of small businesses?
-- The streets with small businesses?
-
->How would poster design affect engagement levels?
-
-- Did I need a more eye-grabbing header?
-- Did my font need a bigger size, different color, different style?
-- A good portion of residents are Spanish speaking. Did I still need to account for this? And if so, in which areas? 
-
-> After putting up some posters, the issue of maintainance spawned yet more questions
-
-- Sometimes it rains! Do I need to laminate all my posters? How much does this cost?
-  - I did end up laminating most of them with a $30 simple Amazon Basics lamination machine. The process is slow though using a cheap tool like that.
-- Is there a way to maybe use metal bands + magnets or some way to have temporary/swappable poster placements?
-  - I was using box-packing tape, which seemed..lacking
-- How am I going to update these posters if the QR code website link breaks or I decide I want to change where it redirects to? 
-  - Reprinting the posters would be costly, but refreshing the QR code by putting a sticker over the old one would suffice.
-
-
-Fun questions, but I lacked a **feedback loop** that would give me data I needed.
-
-And so, the QR code field tracking idea was born.
-
-### Getting Better Data
-
-There are existing services like [Bitly](https://bitly.com/pages/products/qr-codes) that can be used to help generate QR codes that track metrics within their platform. You can save these codes and track engagement metrics on their platform. To be honest, Bitly doesn't offer complex logic here; their major value is likely in the free hosting of these services. A vibe-coded soltuion for a self-hosted service like Bitly would be very easy to achieve.
-
-My niche issue is that I wanted to **dynamically** walk around placing my posters, without pre-planning my walking route. To track each individual poster, I would need to generate a location-based QR code sticker on the spot, to slap on.
-
-**I would also be able to update existing posters** (retrofit? lol) via these means.
-
-### WAIT, is this actually solving anything?! /confusion
-
-If I ONLY used a service like Bitly, **I would need to know in advance** where all my posters were gonna be, and keep my stickers organized before heading out the door to "install" my advertisements, so to speak.
-
-Let's look at what tracking my QR codes would look like if I wanted to just use a service like Bitly to generate my QR codes and use their system (tracks # of clicks, dates, etc.). 
-
-First, before leaving the house, I would need to generate QR codes on Bitly for the posters I'm gonna go hang up. This may or may not be batch friendly (e.g. - can you make multiple codes in one submittion or are you doing a bunch of repetitive clicking? Do they offer an API?):
-- **QR Code #123** is for Jewel Osco, the grocery store
-- **QR Code #124** is for the park's trash can
-- **QR Code #125** is for the streetlight on the corner of Main St. and Side Ave.
-
-Then I print these QR codes as stickers and as I walk around outside, I place them at their designated locations while I install the posters.
-
-### Issues with software-only solutions like Bitly
-
-- Leaves room for manual error. I might mix up my stickers/notes if I'm not careful and think that the grocery store QR code is getting a bunch of traffic when in reality it was the park one! It's unlikely I would find out the truth later! 🔥
-- I need to preselect my destinations before leaving the house. Maybe I file them away in an excel sheet somewhere, or save location details on Bitly's service when I save the QR code. **This is inefficient**.
-  - Alternatively I could probably find a mobile app to snap my locations as I go, and link them up to specific QR stickers at home later (e.g. - Save that QR code #123 was installed @ Location X,Y). But this is **also inefficient**.
-
-### First, solve the inefficiency
-
-Since **I have to go to the physical location no matter what** (constraint), why not utilize that fact? 
-
-I personally want to be able to just press a button that will print out a unique, trackable QR code sticker. This is solveable by utilizing **both custom software and custom hardware**.
-
-In this way, I don't care that QR Code #123 was for the grocery store. I'm feeding data back from the physical world to the digital world, knowing it is all being pre-organized for me, without needing a manual/human/error-prone middle man for such repetitive work.
-
-### What are some challenges with this approach?
-
-- Getting good GPS data out in the physical world. My main issue here is that using a GPS module like Adafruit Ultimate GPS requires pretty much being outside in order to get a fresh satellite signal for coords. It also isn't the fastest process.
-  - Hotspotting from a phone is probably good enough but this is a consideration to make. 
-    - If GPS data can be obtained without an internet connection, the QR-generating solution would need to have offline capabilities that would then need to be reconnected when having access to the internet, in order to fully complete the tracking set up.
-
-## General Use Cases
-
-### Coming Back to Bitly
-
-Out of the box, Bitly **does not solve**:
-
-- "Field work"
-- Location-based feedback
-  - Which neighborhoods/areas are interacting with QR codes, if at all?
-
-### Same-y Situations That Could Benefit
-
-Situations that may be similar to mine:
-
-- Political canvassing posters/signs. These campaigns are running on a budget. Knowing which spots are actually engaging can be helpful. Tracking this data year over year could also be interesting.
-
-- Local happenings like art performances, fairs, special events.
-
-- Businesses trying to get some type of sign-up/engagement on a small scale (do people by the bar engage with QR codes more frequently?)
-
-## Final musings
-
-QR codes are underutilized IMO. 
-
-What if you could generate social engagement with a fun experiment? Have a scavenger-hunt style promotion! Maybe this even exists already. 
-
->"Scan all 3 types of QR codes in the area to get promo/freebie! Try and find them all!". 
-  - Maybe you have blue, red and green QR codes in multiple places and people need to scan 1 of each to get their prize. Which ones are people paying the most attention to?
-
-What about a little route instead? Get from A to B.
-
->"Scan this first QR code at the start of this walkway and keep an eye out to scan the QR code at the end! `-insert incentive-` ". 
-
-  - How many people scan the first QR code vs the last one at the 'destination'? Do people stay engaged? Do people make the full route?
-
-
-Back in olden times, people across all demographics really seemed to enjoy Pokemon Go (yes the hype peak is way over, but still!) which got folks engaging in the physical world using digital tools, in a novel way. 
-
-There's gotta be more to uncover with a generic invention like QR codes. Maybe they already exist but just not here; for example, China might be a valuable place to steal ideas from because their digital integration in society is further along than Western society.
-
-
-The most exciting thing here is that a single idea can create a lot of spinoffs. 
-
-- Maybe a new physical location of high digital engagement is discovered, thanks to better metrics. 
-  - Maybe that means someone would be willing to pay more money to place ads in that hotspot; it now has hard data to back its value. 
-    - Could advertising pricing be dynamic based on its live traffic reports, month-to-month? Are there existing tools to help with that?
-      -  Etc, etc., can keep springboarding forever. Not necessarily into totally novel ideas, ofc.
--  
 
 ## Also See
 
-Checkout my [brainstorming repo](https://github.com/ashfordhill/brainstorm) for more pictures + walls of text.
+Checkout my [brainstorming repo](https://github.com/ashfordhill/brainstorm) for detailed information around this project.
