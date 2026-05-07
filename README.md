@@ -4,17 +4,17 @@
   - [Privatized](#privatized)
   - [Design](#design)
   - [2026](#2026)
+    - [Engagement Notes](#engagement-notes)
     - [Software](#software)
       - [Improvement Ideas](#improvement-ideas)
-      - [Engagement Notes](#engagement-notes)
     - [Hardware](#hardware)
     - [Deployment Notes](#deployment-notes)
       - [Process](#process)
         - [Prepping Posters](#prepping-posters)
         - [Installing Posters](#installing-posters)
       - [Funnest Install](#funnest-install)
-      - [Poster Printing Service Comparison](#poster-printing-service-comparison)
       - [QR Scanning Competitors?!](#qr-scanning-competitors)
+      - [Poster Printing Service Comparison](#poster-printing-service-comparison)
   - [2025](#2025)
     - [Hardware](#hardware-1)
   - [Also See](#also-see)
@@ -34,6 +34,17 @@ The src code for this project and Cloudflare worker deployments live in a privat
 
 ## 2026
 
+### Engagement Notes
+
+- First scan came within an hour after first poster install! I was pleased. It made me want to install more posters.
+- The average person is going to interact with a poster a max of 1 time. There is no need to complete the tree form more than once.
+  - Therefore, I expect to see less traffic over time once every poster is in place (May/June having higher engagement than August/September).
+- It's unlikely people driving cars would stop to engage with my small posters. Posters should face sidewalks for pedestrians, not streets for cars.
+- I expect that bus stops will be a hotter area since pedestrians need to wait around.
+- People autopilot around and probably become blind to flyers in usual spots. Looking for novel spots while keeping out of trouble.
+  - Maybe I could print posters with an obnoxious-colored border next time?
+- Older people probably don't know how to use QR codes.
+
 ### Software
 
 ![](.docs/2026-engagement.gif)
@@ -44,17 +55,6 @@ The src code for this project and Cloudflare worker deployments live in a privat
 - A way to mark a poster as 'missing' or 'uninstalled', via the viewer. Prob need to modify the DB schema for that. 
 - Have circle size on map viewer grow by relative scan count; larger dots would mean more engagement and I don't have to use list view or click around to see my most popular posters.
   - Differentiate posters with 0 scans by color (like grey), on the map viewer. 
-
-#### Engagement Notes
-
-- My first scan came within an hour after my first poster install! I was pleased. It made me want to install more posters.
-- The average person is going to interact with a poster a max of 1 time. 
-  - Therefore, I would expect to see less traffic over time once every poster is in place (May/June having higher engagement than August/September).
-- It's unlikely people driving cars would stop to engage with my small posters. Posters should face sidewalks for pedestrians, not streets for cars.
-- I'm gonna guess that bus stops will be a hotter area since pedestrians need to wait around.  
-
-- Trying to think of unusual/novel install sites. People autopilot around and probably become blind to flyers in usual spots. 
-  - Maybe I could print posters with an obnoxious-colored border next time?
 
 ### Hardware
 
@@ -140,6 +140,14 @@ Really gets the message across (the tree is dead).
   <img src=".docs/2026-poster-install-dead-tree.JPG" width="400" style="margin:0 8px;" />
 </div>
 
+#### QR Scanning Competitors?!
+
+<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+  <img src=".docs/someone-else-advertising-with-qr.jpg" width="400" style="margin:0 8px;" />
+</div>
+<div align="center"><em>Someone else could prob use some fancier posters to advertise their business. Rain has been crazy this year. Also the design could use some love; this almost looks like an invoice.</em></div>
+<br>
+
 #### Poster Printing Service Comparison
 
 | Provider | Year | Material | Cost (pre-tax, pre-shipping) | Quantity | Notes |
@@ -148,14 +156,6 @@ Really gets the message across (the tree is dead).
 | NextDayFlyers | 2025 | 100 lb. Paper w/ Gloss | $32.92 | 50 | |
 
 > UPrinting definitely wins this one. The 14 pt. cardstock was thicker and higher-end feeling. It was their cheapest option. Also the 20 freebies was 👌
-
-#### QR Scanning Competitors?!
-
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/someone-else-advertising-with-qr.jpg" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Someone else could prob use some fancier posters to advertise their business. Rain has been crazy this year. Also the design could use some love; this almost looks like an invoice.</em></div>
-<br>
 
 ## 2025
 
