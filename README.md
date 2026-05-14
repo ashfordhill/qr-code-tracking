@@ -106,26 +106,27 @@
 
 ##### Installing Posters
 
+<table>
+  <tr>
+    <td align="center" valign="top" width="50%">
+      <img src=".docs/hotspot-pi-connected.jpg" alt="Hotspot showing Pi connected" width="390" />
+    </td>
+    <td align="center" valign="top" width="50%">
+      <img src=".docs/2026-poster-installed.jpeg" alt="Installed poster with QR sticker and city stamp" width="390" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><em>Before heading out, I turn Pi on/off and wait to see hotspot connected. Takes around 30 seconds.</em></td>
+  </tr>
+</table>
+
 - grab poster
   - print QR label sticker
-    - attach sticker 
+    - put sticker on poster 
       - remove adhesive backing on poster
-        - place poster
-          - stamp poster
+        - install poster via adhesive backing
+          - stamp poster with city stamp
             - pack up to next location
-
-
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/hotspot-pi-connected.jpg" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Before heading out, I turn Pi on/off and wait to see hotspot connected. Takes around 30 seconds.</em></div>
-<br>
-
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/2026-poster-installed.jpeg" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Installed poster with the QR sticker + city stamp applied.</em></div>
-<br>
 
 #### QR Scanning Competitors?!
 
