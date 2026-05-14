@@ -12,7 +12,6 @@
       - [Process](#process)
         - [Prepping Posters](#prepping-posters)
         - [Installing Posters](#installing-posters)
-      - [Best Install](#best-install)
       - [QR Scanning Competitors?!](#qr-scanning-competitors)
       - [Poster Printing Service Comparison](#poster-printing-service-comparison)
     - [Engagement Notes](#engagement-notes)
@@ -48,57 +47,60 @@
 
 ### Hardware
 
-<br>
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/raspberry-pi-nes.JPG" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Raspberry Pi needed housing to avoid damage on the move</em></div>
-<br>
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/hardware-bundle-2026.jpg" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>All the components together. Using a portable power bank for Pi + printer.</em></div>
-<br>
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/backpack.jpeg" width="400" style="margin:0 8px;" />
-</div>
-
-<div align="center"><em>Everything in backpack. ~12lbs total.</em></div>
+<table>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <img src=".docs/raspberry-pi-nes.JPG" alt="Raspberry Pi in NES-style housing" width="240" />
+    </td>
+    <td align="center" valign="top" width="34%">
+      <img src=".docs/hardware-bundle-2026.jpg" alt="2026 portable hardware bundle" width="240" />
+    </td>
+    <td align="center" valign="top" width="33%">
+      <img src=".docs/backpack.jpeg" alt="Gear packed in backpack" width="240" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><em>All the components together. Using a portable power bank for Pi + printer. Everything in backpack is ~12lbs.</em></td>
+  </tr>
+</table>
 
 ### Deployment Notes
-
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/2026-poster-installed.jpeg" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Installed poster with the QR sticker + city stamp applied.</em></div>
-<br>
 
 #### Process
 
 ##### Prepping Posters
 
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/finished-laminating.jpg" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>All done! 12 groups of 10.</em></div>
-<br>
+<table>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <img src=".docs/slow-lamination.gif" alt="Laminating posters" width="240" />
+    </td>
+    <td align="center" valign="top" width="34%">
+      <img src=".docs/tape-back-posters.JPG" alt="Double-sided adhesive on back of posters" width="240" />
+    </td>
+    <td align="center" valign="top" width="33%">
+      <img src=".docs/finished-laminating.jpg" alt="Finished laminated poster stacks" width="240" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><em>Preparing the posters. The adhesive strips are supposedly reusable.</em></td>
+  </tr>
+</table>
 
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/slow-lamination.gif" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Ultra fast lamination. Thanks Amazon.</em></div>
-<br>
+<table>
+  <tr>
+    <td align="center" valign="top" width="50%">
+      <img src=".docs/2026-poster-install-dead-tree.JPG" alt="Poster install on a dead tree" width="390" />
+    </td>
+    <td align="center" valign="top" width="50%">
+      <img src=".docs/berwyn-stamp.jpg" alt="Custom city stamp for posters" width="390" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><em>My favorite install on a dead tree (left) and a custom stamp I bought to increase the perception of my poster's legitimacy (right)</em></td>
+  </tr>
+</table>
 
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/tape-back-posters.JPG" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Pre-install with double-sided adhesive. Way easier than bringing tape on 'the field'. Also looks nicer.</em></div>
-<br>
-
-<div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/berwyn-stamp.jpg" width="400" style="margin:0 8px;" />
-</div>
-<div align="center"><em>Had a stamp made to make things look official-like and scare anyone off from touching my posters (‼️). Used a version with the mayor's name to appeal to him in case there are issues. Everyone likes a lil ego stroking, yknow?</em></div>
 <br>
 
 
@@ -119,21 +121,18 @@
 <div align="center"><em>Before heading out, I turn Pi on/off and wait to see hotspot connected. Takes around 30 seconds.</em></div>
 <br>
 
-
-#### Best Install
-
-Really gets the message across (the tree is dead).
-
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-  <img src=".docs/2026-poster-install-dead-tree.JPG" width="400" style="margin:0 8px;" />
+  <img src=".docs/2026-poster-installed.jpeg" width="400" style="margin:0 8px;" />
 </div>
+<div align="center"><em>Installed poster with the QR sticker + city stamp applied.</em></div>
+<br>
 
 #### QR Scanning Competitors?!
 
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
   <img src=".docs/someone-else-advertising-with-qr.jpg" width="400" style="margin:0 8px;" />
 </div>
-<div align="center"><em>Someone else could prob use some fancier posters to advertise their business. Rain has been crazy this year. Also the design could use some love; this almost looks like an invoice.</em></div>
+<div align="center"><em>Back off bro, this is my turf!</em></div>
 <br>
 
 #### Poster Printing Service Comparison
