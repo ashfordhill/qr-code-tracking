@@ -31,17 +31,19 @@
 
 ### Software
 
-<div align="center" style="max-width:920px;margin:0 auto;">
-  <div style="display:flex;flex-wrap:nowrap;align-items:flex-start;gap:14px;width:100%;box-sizing:border-box;">
-    <div style="flex:1 1 0;min-width:0;">
-      <img src=".docs/phone-qr-tool.jpeg" alt="QR generator on mobile" style="width:100%;height:auto;display:block;border-radius:4px;" />
-    </div>
-    <div style="flex:2 1 0;min-width:0;">
-      <img src=".docs/2026-engagement.gif" alt="Metrics viewer on desktop" style="width:100%;height:auto;display:block;border-radius:4px;" />
-    </div>
-  </div>
-  <p style="margin:12px 0 0;text-align:center;color:#444;"><em>QR generator site on mobile (left) and metrics-viewing site on desktop (right)</em></p>
-</div>
+<table>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <img src=".docs/phone-qr-tool.jpeg" alt="QR generator on mobile" width="260" />
+    </td>
+    <td align="center" valign="top" width="67%">
+      <img src=".docs/2026-engagement.gif" alt="Metrics viewer on desktop" width="520" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><em>QR generator site on mobile (left) and metrics-viewing site on desktop (right)</em></td>
+  </tr>
+</table>
 
 
 ### Hardware
