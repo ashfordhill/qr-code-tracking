@@ -1,0 +1,22 @@
+{
+  "name": "d1-growth-chart",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "chart:ci": "node run-d1-chart-job.cjs",
+    "chart:query": "node run-d1-chart-job.cjs --query-only",
+    "chart:render": "node render.mjs wrangler-result.json ../../.docs/metrics-daily.json ../../.docs/labels-scans-cumulative.svg",
+    "chart:build": "npm run chart:query && npm run chart:render",
+    "chart:fixture": "node render.mjs ./fixtures/wrangler-sample.json ../../.docs/metrics-daily.json ../../.docs/labels-scans-cumulative.svg --fixture"
+  },
+  "devDependencies": {
+    "wrangler": "^4.30.0"
+  },
+  "dependencies": {
+    "vega": "^5.30.0",
+    "vega-lite": "^5.21.0"
+  }
+}

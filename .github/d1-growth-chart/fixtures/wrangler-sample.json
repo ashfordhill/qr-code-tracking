@@ -1,0 +1,23 @@
+[
+  {
+    "results": [
+      {
+        "calendar_day": "2026-05-05",
+        "labels_cumulative": 10,
+        "scans_cumulative": 8
+      },
+      {
+        "calendar_day": "2026-05-08",
+        "labels_cumulative": 15,
+        "scans_cumulative": 23
+      },
+      {
+        "calendar_day": "2026-05-11",
+        "labels_cumulative": 20,
+        "scans_cumulative": 30
+      }
+    ],
+    "success": true,
+    "meta": {}
+  }
+]

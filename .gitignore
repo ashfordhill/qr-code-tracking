@@ -19,6 +19,9 @@ ENV/
 # Docker
 .docker/
 
+# D1 chart workflow (generated locally; never commit)
+.github/d1-growth-chart/wrangler-result.json
+
 # Node / Cloudflare Worker
 node_modules/
 dist/

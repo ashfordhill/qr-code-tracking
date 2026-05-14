@@ -1,5 +1,8 @@
 # qr-code-tracking
 
+
+![](.docs/labels-scans-cumulative.svg)
+
 - [qr-code-tracking](#qr-code-tracking)
   - [Privatized](#privatized)
   - [Design](#design)
@@ -30,7 +33,6 @@ The src code for this project and Cloudflare worker deployments live in a privat
 ![](.docs/pi-to-server-v2.svg)
 
 ![](.docs/server-db-to-metrics.svg)
-
 
 ## 2026
 
