@@ -4,29 +4,22 @@
 ![](.docs/labels-scans-cumulative.svg)
 
 - [qr-code-tracking](#qr-code-tracking)
-  - [Privatized](#privatized)
   - [Design](#design)
   - [2026](#2026)
-    - [Engagement Notes](#engagement-notes)
     - [Software](#software)
-      - [Improvement Ideas](#improvement-ideas)
     - [Hardware](#hardware)
     - [Deployment Notes](#deployment-notes)
       - [Process](#process)
         - [Prepping Posters](#prepping-posters)
         - [Installing Posters](#installing-posters)
-      - [Funnest Install](#funnest-install)
+      - [Best Install](#best-install)
       - [QR Scanning Competitors?!](#qr-scanning-competitors)
       - [Poster Printing Service Comparison](#poster-printing-service-comparison)
+    - [Engagement Notes](#engagement-notes)
   - [2025](#2025)
     - [Hardware](#hardware-1)
   - [Also See](#also-see)
 
-## Privatized
-
-**⚠️is now documentation-only repo⚠️**
-
-The src code for this project and Cloudflare worker deployments live in a private repo dedicated to tracking my neighborhood's stuff under a specific domain. 
 
 ## Design 
 
@@ -36,27 +29,20 @@ The src code for this project and Cloudflare worker deployments live in a privat
 
 ## 2026
 
-### Engagement Notes
-
-- First scan came within an hour after first poster install! I was pleased. It made me want to install more posters.
-- The average person is going to interact with a poster a max of 1 time. There is no need to complete the tree form more than once.
-  - Therefore, I expect to see less traffic over time once every poster is in place (May/June having higher engagement than August/September).
-- It's unlikely people driving cars would stop to engage with my small posters. Posters should face sidewalks for pedestrians, not streets for cars.
-- I expect that bus stops will be a hotter area since pedestrians need to wait around.
-- People autopilot around and probably become blind to flyers in usual spots. Looking for novel spots while keeping out of trouble.
-  - Maybe I could print posters with an obnoxious-colored border next time?
-- Older people probably don't know how to use QR codes.
-
 ### Software
 
-![](.docs/2026-engagement.gif)
+<div align="center" style="max-width:920px;margin:0 auto;">
+  <div style="display:flex;flex-wrap:nowrap;align-items:flex-start;gap:14px;width:100%;box-sizing:border-box;">
+    <div style="flex:1 1 0;min-width:0;">
+      <img src=".docs/phone-qr-tool.jpeg" alt="QR generator on mobile" style="width:100%;height:auto;display:block;border-radius:4px;" />
+    </div>
+    <div style="flex:2 1 0;min-width:0;">
+      <img src=".docs/2026-engagement.gif" alt="Metrics viewer on desktop" style="width:100%;height:auto;display:block;border-radius:4px;" />
+    </div>
+  </div>
+  <p style="margin:12px 0 0;text-align:center;color:#444;"><em>QR generator site on mobile (left) and metrics-viewing site on desktop (right)</em></p>
+</div>
 
-#### Improvement Ideas
-
-- A way to delete slugs on my 'QR print button' site. For instance I accidentally pressed the print button with my phone once. Would be nice to rm from database while on the field.
-- A way to mark a poster as 'missing' or 'uninstalled', via the viewer. Prob need to modify the DB schema for that. 
-- Have circle size on map viewer grow by relative scan count; larger dots would mean more engagement and I don't have to use list view or click around to see my most popular posters.
-  - Differentiate posters with 0 scans by color (like grey), on the map viewer. 
 
 ### Hardware
 
@@ -125,8 +111,6 @@ The src code for this project and Cloudflare worker deployments live in a privat
             - pack up to next location
 
 
-I didn't experience any bugs.
-
 <div align="center" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
   <img src=".docs/hotspot-pi-connected.jpg" width="400" style="margin:0 8px;" />
 </div>
@@ -134,7 +118,7 @@ I didn't experience any bugs.
 <br>
 
 
-#### Funnest Install
+#### Best Install
 
 Really gets the message across (the tree is dead).
 
@@ -158,6 +142,15 @@ Really gets the message across (the tree is dead).
 | NextDayFlyers | 2025 | 100 lb. Paper w/ Gloss | $32.92 | 50 | |
 
 > UPrinting definitely wins this one. The 14 pt. cardstock was thicker and higher-end feeling. It was their cheapest option. Also the 20 freebies was 👌
+
+### Engagement Notes
+
+- First scan came within an hour after first poster install! I was pleased. It made me want to install more posters.
+- The average person is going to interact with a poster a max of 1 time. There is no need to complete the tree form more than once.
+  - Therefore, I expect to see less traffic over time once every poster is in place (May/June having higher engagement than August/September).
+- Posters should face sidewalks for pedestrians, not streets for cars.
+- People autopilot around; thinking about ways to grab their attention with future designs.
+- Older people probably don't know how to use QR codes.
 
 ## 2025
 
