@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-05-15T02:39:36.791Z",
+  "generatedAt": "2026-05-15T07:16:22.348Z",
   "calendar": "UTC",
   "note": "Cumulative totals per calendar day. Built from D1 COUNT(*) (see metrics.sql); sparse query includes date('now') so the current UTC day is always tallied when the workflow runs.",
   "sparseRowCount": 11,
@@ -53,8 +53,8 @@
     },
     {
       "calendar_day": "2026-05-14",
-      "labels": 57,
-      "scans": 57
+      "labels": 77,
+      "scans": 68
     },
     {
       "calendar_day": "2026-05-15",
