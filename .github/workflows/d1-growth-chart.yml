@@ -5,7 +5,7 @@ on:
     # 05:59 UTC = 23:59 Central Standard Time (CST, UTC−6). GitHub cron is UTC-only.
     # Illinois uses CDT (UTC−5) Mar–Nov; then 05:59 UTC ≈ 00:59 next calendar day Central.
     # For ~23:59 during CDT use: '59 4 * * *' instead.
-    - cron: '59 5 * * *'
+    - cron: '59 4 * * *'
   workflow_dispatch:
 
 permissions:
