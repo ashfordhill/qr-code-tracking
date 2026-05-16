@@ -1,10 +1,10 @@
 /**
- * Build committed metrics JSON + chart SVG from wrangler output, or render SVG from JSON only.
+ * metrics-daily.json is the source of truth for the chart. Wrangler output only feeds the JSON build step.
  *
- * From wrangler (CI / scheduled workflow):
- *   node render.mjs <wrangler-result.json> <metrics-daily.json> <chart.svg> [--fixture]
+ * Build metrics JSON from wrangler (D1 query output):
+ *   node render.mjs --build-metrics <wrangler-result.json> <metrics-daily.json> [--fixture]
  *
- * From committed JSON (no D1):
+ * Render chart SVG from committed metrics JSON:
  *   node render.mjs --from-json <metrics-daily.json> <chart.svg>
  *
  * --fixture : do not extend the timeline to real UTC today (stable output for sample wrangler JSON).
@@ -317,6 +317,7 @@ function parseCli() {
   const args = process.argv.slice(2);
   const fixtureMode = args.includes('--fixture');
   const filtered = args.filter((a) => a !== '--fixture');
+
   const fromJsonIdx = filtered.indexOf('--from-json');
   if (fromJsonIdx !== -1) {
     const jsonPath = filtered[fromJsonIdx + 1];
@@ -325,43 +326,56 @@ function parseCli() {
       console.error('Usage: node render.mjs --from-json <metrics-daily.json> <chart.svg>');
       process.exit(1);
     }
-    return { mode: 'from-json', jsonPath, svgOut, fixtureMode: false };
+    return { mode: 'from-json', jsonPath, svgOut };
   }
-  const [wranglerPath, jsonOut, svgOut] = filtered;
-  if (!wranglerPath || !jsonOut || !svgOut) {
-    console.error(
-      'Usage: node render.mjs <wrangler-result.json> <metrics-daily.json> <chart.svg> [--fixture]',
-    );
-    process.exit(1);
+
+  const buildIdx = filtered.indexOf('--build-metrics');
+  if (buildIdx !== -1) {
+    const wranglerPath = filtered[buildIdx + 1];
+    const jsonOut = filtered[buildIdx + 2];
+    if (!wranglerPath || !jsonOut) {
+      console.error(
+        'Usage: node render.mjs --build-metrics <wrangler-result.json> <metrics-daily.json> [--fixture]',
+      );
+      process.exit(1);
+    }
+    return { mode: 'build-metrics', wranglerPath, jsonOut, fixtureMode };
   }
-  return { mode: 'wrangler', wranglerPath, jsonOut, svgOut, fixtureMode };
+
+  console.error(
+    'Usage:\n' +
+      '  node render.mjs --build-metrics <wrangler-result.json> <metrics-daily.json> [--fixture]\n' +
+      '  node render.mjs --from-json <metrics-daily.json> <chart.svg>',
+  );
+  process.exit(1);
+}
+
+async function buildMetricsFromWrangler(wranglerPath, jsonOut, fixtureMode) {
+  const sparse = extractSparseCumulativeRows(wranglerPath);
+  const wide = buildDenseCumulative(sparse, fixtureMode);
+  if (wide.length === 0) {
+    throw new Error('No metrics rows after expansion.');
+  }
+  writeMetricsDailyJson(wide, sparse.length, jsonOut);
+  console.log(`Wrote ${jsonOut} (${wide.length} day(s), ${sparse.length} sparse SQL row(s)).`);
+  return wide;
+}
+
+async function renderSvgFromMetrics(wide, svgOut, { sourceLabel = 'JSON' } = {}) {
+  if (wide.length === 0) {
+    throw new Error('No chart rows.');
+  }
+  const spec = buildSpec(wide);
+  const svg = await toSvg(spec);
+  writeFileSync(svgOut, svg, 'utf8');
+  console.log(`Wrote ${svgOut} (${wide.length} day(s) on chart from ${sourceLabel}).`);
 }
 
 const cli = parseCli();
 
-let wide;
-let sparseLen = 0;
-
-if (cli.mode === 'from-json') {
-  wide = readMetricsDailyJson(cli.jsonPath);
+if (cli.mode === 'build-metrics') {
+  await buildMetricsFromWrangler(cli.wranglerPath, cli.jsonOut, cli.fixtureMode);
 } else {
-  const sparse = extractSparseCumulativeRows(cli.wranglerPath);
-  sparseLen = sparse.length;
-  wide = buildDenseCumulative(sparse, cli.fixtureMode);
-  if (wide.length === 0) {
-    throw new Error('No chart rows after expansion.');
-  }
-  writeMetricsDailyJson(wide, sparseLen, cli.jsonOut);
-  console.log(`Wrote ${cli.jsonOut} (${wide.length} day(s), ${sparseLen} sparse SQL row(s)).`);
+  const wide = readMetricsDailyJson(cli.jsonPath);
+  await renderSvgFromMetrics(wide, cli.svgOut);
 }
-
-if (wide.length === 0) {
-  throw new Error('No chart rows.');
-}
-
-const spec = buildSpec(wide);
-const svg = await toSvg(spec);
-writeFileSync(cli.svgOut, svg, 'utf8');
-console.log(
-  `Wrote ${cli.svgOut} (${wide.length} day(s) on chart${cli.mode === 'wrangler' ? `, ${sparseLen} sparse SQL row(s)` : ' from JSON'}${cli.fixtureMode ? ', --fixture' : ''}).`,
-);

@@ -1,5 +1,6 @@
 /**
- * Mirrors .github/workflows/d1-growth-chart.yml (install → D1 query → render).
+ * Mirrors .github/workflows/d1-growth-chart.yml:
+ *   D1 query → metrics-daily.json → SVG from JSON (metrics JSON is source of truth for the chart).
  *
  * Remote D1: use `--command` + SQL text (same as CI). Do not use `--file` for
  * SELECTs — Wrangler's remote `--file` path uses import-style handling and
@@ -8,6 +9,10 @@
  * From repo root (`.env` with Cloudflare token + account id):
  *   cd .github/d1-growth-chart && npm run chart:ci
  *   (or: npm --prefix .github/d1-growth-chart run chart:ci)
+ *
+ * Re-render only (edit .docs/metrics-daily.json first, no D1):
+ *   npm run chart:ci:from-json
+ *
  * From this directory: node run-d1-chart-job.cjs --query-only
  */
 const { spawnSync } = require('node:child_process');
@@ -122,8 +127,9 @@ function runRemoteD1Query(dbTarget) {
   writeFileSync(wranglerOut, wr.stdout, 'utf8');
 }
 
+const fromJsonOnly = process.argv.includes('--from-json');
+
 loadEnvFile(join(repoRoot, '.env'));
-requireCloudflareEnv();
 
 const dbTarget =
   process.env.D1_DB_TARGET ||
@@ -132,12 +138,12 @@ const dbTarget =
   'labels-db';
 
 if (process.argv.includes('--query-only')) {
+  requireCloudflareEnv();
   runRemoteD1Query(dbTarget);
   console.log('Query-only done.');
   process.exit(0);
 }
 
-ensureWranglerInstalled();
 console.log('→ npm ci (.github/d1-growth-chart)');
 const ci = spawnSync('npm', ['ci'], {
   cwd: chartDir,
@@ -147,15 +153,32 @@ const ci = spawnSync('npm', ['ci'], {
 });
 if (ci.status !== 0) process.exit(ci.status ?? 1);
 
-runRemoteD1Query(dbTarget);
-
 mkdirSync(join(repoRoot, '.docs'), { recursive: true });
-console.log(`→ node render.mjs → ${metricsJsonOut} + ${svgOut}`);
-const render = spawnSync(process.execPath, [renderMjs, wranglerOut, metricsJsonOut, svgOut], {
-  cwd: repoRoot,
-  stdio: 'inherit',
-  env: process.env,
-});
+
+if (!fromJsonOnly) {
+  requireCloudflareEnv();
+  runRemoteD1Query(dbTarget);
+  console.log(`→ node render.mjs --build-metrics → ${metricsJsonOut}`);
+  const build = spawnSync(
+    process.execPath,
+    [renderMjs, '--build-metrics', wranglerOut, metricsJsonOut],
+    { cwd: repoRoot, stdio: 'inherit', env: process.env },
+  );
+  if (build.status !== 0) process.exit(build.status ?? 1);
+} else {
+  if (!existsSync(metricsJsonOut)) {
+    console.error(`Missing ${metricsJsonOut} — create or edit it before --from-json.`);
+    process.exit(1);
+  }
+  console.log(`→ skip D1; using ${metricsJsonOut}`);
+}
+
+console.log(`→ node render.mjs --from-json → ${svgOut}`);
+const render = spawnSync(
+  process.execPath,
+  [renderMjs, '--from-json', metricsJsonOut, svgOut],
+  { cwd: repoRoot, stdio: 'inherit', env: process.env },
+);
 if (render.status !== 0) process.exit(render.status ?? 1);
 
 console.log('Done (no git commit). Inspect .docs/metrics-daily.json and .docs/labels-scans-cumulative.svg');

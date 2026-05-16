@@ -2,11 +2,15 @@ name: D1 growth chart (SVG)
 
 on:
   schedule:
-    # 05:59 UTC = 23:59 Central Standard Time (CST, UTC−6). GitHub cron is UTC-only.
-    # Illinois uses CDT (UTC−5) Mar–Nov; then 05:59 UTC ≈ 00:59 next calendar day Central.
-    # For ~23:59 during CDT use: '59 4 * * *' instead.
+    # 04:59 UTC = 22:59 Central Standard Time (CST, UTC−6). One hour earlier than the prior 05:59 UTC slot.
+    # Illinois uses CDT (UTC−5) Mar–Nov; then 04:59 UTC ≈ 23:59 same calendar day Central.
     - cron: '59 4 * * *'
   workflow_dispatch:
+    inputs:
+      skip_d1_fetch:
+        description: Use committed .docs/metrics-daily.json (skip D1 query and metrics rebuild)
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -32,6 +36,7 @@ jobs:
         run: npm ci
 
       - name: Query D1 (remote)
+        if: github.event_name != 'workflow_dispatch' || inputs.skip_d1_fetch != true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -51,11 +56,18 @@ jobs:
             --command "$SQL" \
             --json > .github/d1-growth-chart/wrangler-result.json
 
-      - name: Write metrics JSON + render SVG
+      - name: Build metrics-daily.json from D1
+        if: github.event_name != 'workflow_dispatch' || inputs.skip_d1_fetch != true
         run: |
           mkdir -p .docs
-          node .github/d1-growth-chart/render.mjs \
+          node .github/d1-growth-chart/render.mjs --build-metrics \
             .github/d1-growth-chart/wrangler-result.json \
+            .docs/metrics-daily.json
+
+      - name: Render SVG from metrics-daily.json
+        run: |
+          mkdir -p .docs
+          node .github/d1-growth-chart/render.mjs --from-json \
             .docs/metrics-daily.json \
             .docs/labels-scans-cumulative.svg
 
