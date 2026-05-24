@@ -7,13 +7,14 @@
  * Render chart SVG from committed metrics JSON:
  *   node render.mjs --from-json <metrics-daily.json> <chart.svg>
  *
- * --fixture : do not extend the timeline to real UTC today (stable output for sample wrangler JSON).
+ * --fixture : do not extend the timeline to real Central today (stable output for sample wrangler JSON).
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { compile } from 'vega-lite';
 import * as vega from 'vega';
 
 const METRICS_SCHEMA_VERSION = 1;
+const CHICAGO_TZ = 'America/Chicago';
 
 /** Wrangler may print spinners before the JSON array; strip and parse. */
 function parseWranglerJsonArray(raw) {
@@ -51,38 +52,42 @@ function reqNum(row, key, day) {
   return n;
 }
 
-/** Sparse SQL rows: one row per activity day (plus today) with DB cumulative totals. */
-function extractSparseCumulativeRows(wranglerJsonPath) {
+/** YYYY-MM-DD in America/Chicago for an ISO timestamp string. */
+function chicagoCalendarDay(isoTimestamp) {
+  const d = new Date(String(isoTimestamp));
+  if (Number.isNaN(d.getTime())) {
+    throw new Error(`Invalid timestamp: ${isoTimestamp}`);
+  }
+  return d.toLocaleDateString('en-CA', { timeZone: CHICAGO_TZ });
+}
+
+function chicagoTodayIso() {
+  return chicagoCalendarDay(new Date().toISOString());
+}
+
+/** Rows from metrics.sql: { kind: 'label'|'scan', at: ISO string }. */
+function extractEventsFromWrangler(wranglerJsonPath) {
   const raw = readFileSync(wranglerJsonPath, 'utf8');
   const data = parseWranglerJsonArray(raw);
   const batches = Array.isArray(data) ? data : [data];
-  const rows = [];
+  const events = [];
   for (const batch of batches) {
     if (!batch?.results || !Array.isArray(batch.results)) continue;
     for (const row of batch.results) {
-      if (!row || row.calendar_day == null) continue;
-      rows.push(row);
+      if (!row?.at) continue;
+      const kind = String(row.kind ?? '').toLowerCase();
+      if (kind !== 'label' && kind !== 'scan') {
+        throw new Error(`Unexpected kind in D1 row: ${row.kind}`);
+      }
+      events.push({ kind, at: String(row.at) });
     }
   }
-  if (rows.length === 0) {
+  if (events.length === 0) {
     throw new Error(
-      'No rows in wrangler JSON. For remote SELECTs use `wrangler d1 execute --command` (not `--file`).',
+      'No label/scan events in wrangler JSON. For remote SELECTs use `wrangler d1 execute --command` (not `--file`).',
     );
   }
-  const byDay = new Map();
-  for (const row of rows) {
-    const day = normalizeCalendarDay(row.calendar_day);
-    const labels = reqNum(row, 'labels_cumulative', day);
-    const scans = reqNum(row, 'scans_cumulative', day);
-    byDay.set(day, { calendar_day: day, labels, scans });
-  }
-  const unique = [...byDay.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([, r]) => r);
-  if (unique.length < rows.length) {
-    console.warn(
-      `Deduplicated ${rows.length - unique.length} duplicate calendar_day row(s) (e.g. repeated wrangler batches).`,
-    );
-  }
-  return unique;
+  return events;
 }
 
 function assertIsoDate(s) {
@@ -91,16 +96,16 @@ function assertIsoDate(s) {
   }
 }
 
-function utcIsoDateFromMs(ms) {
-  return new Date(ms).toISOString().slice(0, 10);
-}
-
 function parseIsoUtc(iso) {
   const [y, m, d] = iso.split('-').map(Number);
   return Date.UTC(y, m - 1, d);
 }
 
-/** Inclusive range of UTC calendar days as ISO strings. */
+function utcIsoDateFromMs(ms) {
+  return new Date(ms).toISOString().slice(0, 10);
+}
+
+/** Inclusive range of calendar days (YYYY-MM-DD strings). */
 function eachIsoDayInclusive(isoStart, isoEnd) {
   const out = [];
   let t = parseIsoUtc(isoStart);
@@ -121,34 +126,43 @@ function minIso(a, b) {
 }
 
 /**
- * One row per calendar day from first DB activity through `end` (UTC), forward-filling
- * cumulative totals from sparse SQL rows (same values as COUNT(*) through that day).
+ * One row per America/Chicago calendar day from first activity through Central "today"
+ * (or through last event day in --fixture mode). Cumulative = COUNT(*) through end of that day.
  */
-function buildDenseCumulative(sparseSorted, fixtureMode) {
-  if (sparseSorted.length === 0) return [];
-  const first = sparseSorted[0].calendar_day;
-  const lastData = sparseSorted[sparseSorted.length - 1].calendar_day;
-  const today = utcIsoDateFromMs(Date.now());
-  const end = fixtureMode ? lastData : maxIso(today, lastData);
+function buildDailyCumulativeFromEvents(events, fixtureMode) {
+  const labelDays = [];
+  const scanDays = [];
+  for (const e of events) {
+    const day = chicagoCalendarDay(e.at);
+    if (e.kind === 'label') labelDays.push(day);
+    else scanDays.push(day);
+  }
+  if (labelDays.length === 0 && scanDays.length === 0) return [];
+
+  const allEventDays = [...labelDays, ...scanDays].sort();
+  const first = allEventDays[0];
+  const lastEvent = allEventDays[allEventDays.length - 1];
+  const centralToday = chicagoTodayIso();
+  const end = fixtureMode ? lastEvent : maxIso(centralToday, lastEvent);
   const start = minIso(first, end);
 
-  let j = 0;
-  let lastL = 0;
-  let lastS = 0;
   const wide = [];
   for (const day of eachIsoDayInclusive(start, end)) {
     assertIsoDate(day);
-    while (j < sparseSorted.length && sparseSorted[j].calendar_day <= day) {
-      lastL = sparseSorted[j].labels;
-      lastS = sparseSorted[j].scans;
-      j++;
+    let labels = 0;
+    let scans = 0;
+    for (const d of labelDays) {
+      if (d <= day) labels++;
     }
-    wide.push({ calendar_day: day, labels: lastL, scans: lastS });
+    for (const d of scanDays) {
+      if (d <= day) scans++;
+    }
+    wide.push({ calendar_day: day, labels, scans });
   }
   return wide;
 }
 
-/** Canonical committed file: one row per UTC calendar day, cumulative totals. */
+/** Canonical committed file: one row per Central calendar day, cumulative totals. */
 function readMetricsDailyJson(jsonPath) {
   const raw = readFileSync(jsonPath, 'utf8');
   const data = JSON.parse(raw);
@@ -178,14 +192,15 @@ function readMetricsDailyJson(jsonPath) {
   return wide;
 }
 
-function writeMetricsDailyJson(wide, sparseRowCount, jsonPath) {
+function writeMetricsDailyJson(wide, eventCount, jsonPath) {
   const payload = {
     schemaVersion: METRICS_SCHEMA_VERSION,
     generatedAt: new Date().toISOString(),
-    calendar: 'UTC',
+    calendar: CHICAGO_TZ,
+    centralToday: chicagoTodayIso(),
     note:
-      'Cumulative totals per calendar day. Built from D1 COUNT(*) (see metrics.sql); sparse query includes date(\'now\') so the current UTC day is always tallied when the workflow runs.',
-    sparseRowCount,
+      'Cumulative totals per America/Chicago calendar day. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.',
+    eventCount,
     dayCount: wide.length,
     days: wide.map((d) => ({
       calendar_day: d.calendar_day,
@@ -198,7 +213,7 @@ function writeMetricsDailyJson(wide, sparseRowCount, jsonPath) {
 
 function buildSpec(wide) {
   const last = wide[wide.length - 1];
-  const caption = `Latest (UTC): ${last.labels} labels · ${last.scans} scans · through ${last.calendar_day}`;
+  const caption = `Latest (Central): ${last.labels} labels · ${last.scans} scans · through ${last.calendar_day}`;
   const sameYear =
     wide.length > 0 &&
     wide[0].calendar_day.slice(0, 4) === wide[wide.length - 1].calendar_day.slice(0, 4);
@@ -351,13 +366,15 @@ function parseCli() {
 }
 
 async function buildMetricsFromWrangler(wranglerPath, jsonOut, fixtureMode) {
-  const sparse = extractSparseCumulativeRows(wranglerPath);
-  const wide = buildDenseCumulative(sparse, fixtureMode);
+  const events = extractEventsFromWrangler(wranglerPath);
+  const wide = buildDailyCumulativeFromEvents(events, fixtureMode);
   if (wide.length === 0) {
     throw new Error('No metrics rows after expansion.');
   }
-  writeMetricsDailyJson(wide, sparse.length, jsonOut);
-  console.log(`Wrote ${jsonOut} (${wide.length} day(s), ${sparse.length} sparse SQL row(s)).`);
+  writeMetricsDailyJson(wide, events.length, jsonOut);
+  console.log(
+    `Wrote ${jsonOut} (${wide.length} Central day(s), ${events.length} event(s), through ${wide[wide.length - 1].calendar_day}).`,
+  );
   return wide;
 }
 

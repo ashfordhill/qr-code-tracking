@@ -2,9 +2,9 @@ name: D1 growth chart (SVG)
 
 on:
   schedule:
-    # 04:59 UTC = 22:59 Central Standard Time (CST, UTC−6). One hour earlier than the prior 05:59 UTC slot.
-    # Illinois uses CDT (UTC−5) Mar–Nov; then 04:59 UTC ≈ 23:59 same calendar day Central.
-    - cron: '59 4 * * *'
+    # 04:00 UTC ≈ 22:00 CST (UTC−6) / 23:00 CDT (UTC−5) — end-of-day snapshot in Berwyn, IL.
+    # Chart buckets by America/Chicago (see render.mjs), not UTC, so this aligns with local calendar days.
+    - cron: '0 4 * * *'
   workflow_dispatch:
     inputs:
       skip_d1_fetch:

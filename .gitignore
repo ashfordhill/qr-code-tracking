@@ -42,3 +42,6 @@ worker/.dev.vars
 
 # Logs
 *.log
+
+# Cloudflare traffic exports (local)
+scripts/output/

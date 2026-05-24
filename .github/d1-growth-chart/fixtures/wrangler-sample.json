@@ -1,21 +1,12 @@
 [
   {
     "results": [
-      {
-        "calendar_day": "2026-05-05",
-        "labels_cumulative": 10,
-        "scans_cumulative": 8
-      },
-      {
-        "calendar_day": "2026-05-08",
-        "labels_cumulative": 15,
-        "scans_cumulative": 23
-      },
-      {
-        "calendar_day": "2026-05-11",
-        "labels_cumulative": 20,
-        "scans_cumulative": 30
-      }
+      { "kind": "label", "at": "2026-05-05T18:00:00.000Z" },
+      { "kind": "label", "at": "2026-05-05T20:00:00.000Z" },
+      { "kind": "scan", "at": "2026-05-05T21:00:00.000Z" },
+      { "kind": "label", "at": "2026-05-08T15:00:00.000Z" },
+      { "kind": "scan", "at": "2026-05-08T16:00:00.000Z" },
+      { "kind": "scan", "at": "2026-05-11T12:00:00.000Z" }
     ],
     "success": true,
     "meta": {}

@@ -6,6 +6,11 @@
 - [qr-code-tracking](#qr-code-tracking)
   - [Design](#design)
   - [2026](#2026)
+    - [May Update](#may-update)
+      - [Metrics Site Live](#metrics-site-live)
+        - [View 2022 Trees on Map](#view-2022-trees-on-map)
+        - [Activity](#activity)
+      - [Longevity Issues](#longevity-issues)
     - [Software](#software)
     - [Hardware](#hardware)
     - [Deployment Notes](#deployment-notes)
@@ -27,6 +32,47 @@
 ![](.docs/server-db-to-metrics.svg)
 
 ## 2026
+
+### May Update
+
+#### Metrics Site Live
+
+- [https://metrics.trees4berwyn.org](https://metrics.trees4berwyn.org)
+
+  - Viewing the slugs requires a password. There's no real reason to not. 
+
+
+##### View 2022 Trees on Map
+Added a tree overlay from [Berwyn's 2022 Tree Inventory](https://cityofberwyn.maps.arcgis.com/apps/webappviewer/index.html?id=0376e190e586494998559cfd9c04580d)
+
+![](.docs/tree-overlay.gif)
+
+##### Activity
+
+Activity overlay based on scan count + experimental timeline - I want to see how engagement changes based on time/day and look for any trends. There isn't enough data for anything conclusive though. Maybe the end of the summer.
+
+![](.docs/metrics-timeline-v1.gif)
+![](.docs/activity-levels.png)
+
+#### Longevity Issues
+
+![](.docs/faded-label.jpg)
+
+The sun has not been a friend during this process.
+
+With random thunderstorms mixed with intermittent sunny days my QR labels have started to fade, mostly due to UV damage.
+
+I've concluded that I will revisit existing posters. There are 77 installed at the time of this writing.
+
+  - To address the sun issue I ordered ['weatherproof' direct thermal labels](https://www.onlinelabels.com/products/rl940dw?src=mp-482). On the plus side I'll no longer have to trim the label's excess off myself with scissors now that I'm going to be using 3"W x 2"L labels instead of the 4"W x 6"L labels (too much length) I inherited. Though, I really should've done the 4"W. Too late now though! Order has shipped. 📦
+
+  - I also ordered [UV protection spray](https://www.krylon.com/en/products/clear-coatings/uv-resistant-clear-coating.html) that I'll be applying after labels.
+
+On the software side, this means I'll need a 'replace label' feature that plays well with my metrics-viewing site.
+
+  - Might also throw in a 'disabled/removed' feature. I've considered removing a couple posters that probably weren't great spots to begin with.
+
+This wasn't a problem I anticipated & it's somewhat discouraging but it's a solveable problem. I'm glad I didn't install all the posters yet!
 
 ### Software
 
@@ -121,7 +167,7 @@
 </table>
 
 - grab poster
-  - print QR label sticker
+  - print QR label sticker 
     - put sticker on poster 
       - remove adhesive backing on poster
         - install poster via adhesive backing
