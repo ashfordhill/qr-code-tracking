@@ -39,9 +39,6 @@
 
 - [https://metrics.trees4berwyn.org](https://metrics.trees4berwyn.org)
 
-  - Viewing the slugs requires a password. There's no real reason to not. 
-
-
 ##### View 2022 Trees on Map
 Added a tree overlay from [Berwyn's 2022 Tree Inventory](https://cityofberwyn.maps.arcgis.com/apps/webappviewer/index.html?id=0376e190e586494998559cfd9c04580d)
 
