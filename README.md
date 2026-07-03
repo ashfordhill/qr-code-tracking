@@ -50,7 +50,7 @@ Besides shade and general ecosystem strengths, another benefit of trees is absor
 
 Before 6:00am, there's usually a whole symphony of birds chirping. This is a condensed recording of 17 bird species (house sparrow not included in imgs below) caught using the [AWESOME app Merlin](https://merlin.allaboutbirds.org/), for a mere 10 minute walk in my neighborhood.
 
-<video src=".docs/berwyn-il-bird-highlights.mp4" controls width="720"></video>
+<video src="https://github.com/ashfordhill/qr-code-tracking/releases/download/readme-assets/berwyn-il-bird-highlights.mp4" controls width="720" playsinline></video>
 
 Personally I like seeing raptor type birds - I've seen 2 Cooper's Hawks and 2 American Kestrals over the past year but they aren't often sighted. Apparently a Bald Eagle was spotted last year in one of Berwyn's tallest trees! 
 
