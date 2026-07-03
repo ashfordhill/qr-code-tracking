@@ -3,9 +3,18 @@
 
 ![](.docs/labels-scans-cumulative.svg)
 
+[metrics.trees4berwyn.org](https://metrics.trees4berwyn.org)
+
 - [qr-code-tracking](#qr-code-tracking)
   - [Design](#design)
   - [2026](#2026)
+    - [July Update](#july-update)
+      - [The Birds and the Trees](#the-birds-and-the-trees)
+      - [2026 Weather is Crazyyy](#2026-weather-is-crazyyy)
+      - [Tree Damage from Weather Conditions](#tree-damage-from-weather-conditions)
+      - [Comms with Berwyn Tree Canopy Initiative](#comms-with-berwyn-tree-canopy-initiative)
+      - [Metrics Updates](#metrics-updates)
+      - [Reflections](#reflections)
     - [May Update](#may-update)
       - [Metrics Site Live](#metrics-site-live)
         - [View 2022 Trees on Map](#view-2022-trees-on-map)
@@ -32,6 +41,119 @@
 ![](.docs/server-db-to-metrics.svg)
 
 ## 2026
+
+### July Update
+
+#### The Birds and the Trees
+
+Besides shade and general ecosystem strengths, another benefit of trees is absorbing sound; although I live 2 blocks from a main street with small businesses and a moderately busy road, I've never heard a peep from it.
+
+Before 6:00am, there's usually a whole symphony of birds chirping. This is a condensed recording of 17 bird species (house sparrow not included in imgs below) caught using the [AWESOME app Merlin](https://merlin.allaboutbirds.org/), for a mere 10 minute walk in my neighborhood.
+
+<video src=".docs/berwyn-il-bird-highlights.mp4" controls width="720"></video>
+
+Personally I like seeing raptor type birds - I've seen 2 Cooper's Hawks and 2 American Kestrals over the past year but they aren't often sighted. Apparently a Bald Eagle was spotted last year in one of Berwyn's tallest trees! 
+
+Chicagoland has some exciting animal situations:
+
+- Just this summer, [2 Bald Eaglets were born for the first time in a century](https://www.chicagotribune.com/2026/07/02/chicagos-first-bald-eaglets/), in Chicago!
+
+- [Chicago has a wild quaker/monk parakeet population](https://www.uchicagomedicine.org/forefront/biological-sciences-articles/escaped-pet-parrots-naturalized-in-23-states), due to escaped/released pets from the 50's - 60's.
+  - I have a blue Quaker parrot named Frankie! Non-green quaker parrots are recessive colors usually resulting from breeders
+
+- [Chicago released 1000 feral cats in 2021](https://www.theguardian.com/us-news/2021/may/14/chicago-feral-cats-rat-crisis) in the city to help combat rats
+  - RIP [Chicago rat hole](https://en.wikipedia.org/wiki/Chicago_rat_hole)
+
+<p align="center">
+  <img src=".docs/hawk-feather.JPEG" alt="Hawk contour feather" width="480" />
+</p>
+<div align="center"><em>Found on 8/10/2025, on the sidewalk behind my house. A contour feather of (likely) a hawk; either Red-Shouldered or Cooper's. Feather identification can be difficult. <a href="https://www.reddit.com/r/FeatherIdentification/comments/1uj4tpg/who_did_this_little_guy_belong_to_western_illinois/">This</a> and <a href="https://www.reddit.com/r/whatsthisbird/comments/1lvtikj/feather_identification/">this</a> are the closest to online postings I've found in reverse img search.</em></div>
+
+---
+
+
+#### 2026 Weather is Crazyyy
+
+This year, thanks to El Nino and **rapid** climate change in general, the weather has been very chaotic and not following usual patterns. 
+
+We've had a lot of intermittent rain dumpings and severe thunderstorms. Although we've just recently had a 1-week heat wave (up to 96°F), the heat and temperatures have been fairly low and moderate compared to previous summers. 
+
+The plants are quite happy with all the precipitation!
+
+#### Tree Damage from Weather Conditions
+
+Severe thunderstorms can be destructive for areas with large tree canopys:
+
+<table>
+  <tr>
+    <td align="center" valign="top" width="25%">
+      <img src=".docs/tree-dmg-1.JPEG" alt="Storm tree damage 1" width="240" />
+    </td>
+    <td align="center" valign="top" width="25%">
+      <img src=".docs/tree-dmg-2.PNG" alt="Storm tree damage 2" width="240" />
+    </td>
+    <td align="center" valign="top" width="25%">
+      <img src=".docs/tree-dmg-3.PNG" alt="Storm tree damage 3" width="240" />
+    </td>
+    <td align="center" valign="top" width="25%">
+      <img src=".docs/tree-dmg-4.JPEG" alt="Storm tree damage 4" width="240" />
+    </td>
+  </tr>
+</table>
+
+Seeing this sort of damage would not necessarily encourage everyone to want to 'plant more trees'.
+
+
+#### Comms with Berwyn Tree Canopy Initiative
+
+Last week I communicated with the leader of BTCI (Alex), which is a group whose meetings (or meeting notes via email chains) I engage with. Relevant: My tree poster effort predates me coming into contact with BTCI and has continued as my own **extreme ownership** solo project & **prototype** experiment. 
+
+I linked Alex to my [metrics.trees4berwyn.org site](https://metrics.trees4berwyn.org) so he could take a look. He responded enthusiastically and said he would share this with the group to see if they had any ideas for other potential 'hot spots' to put my posters. I'm interested to see what the group comes up with.
+
+I have started paying attention to local outdoor events in order to prepare some posters around the areas beforehand, such as these:
+
+<table>
+  <tr>
+    <td align="center" valign="top" width="50%">
+      <img src=".docs/event-poster-1.JPEG" alt="Event poster install 1" width="390" />
+    </td>
+    <td align="center" valign="top" width="50%">
+      <img src=".docs/event-poster-2.JPEG" alt="Event poster install 2" width="390" />
+    </td>
+  </tr>
+</table>
+
+#### Metrics Updates
+
+- Replaced 77 poster labels
+- Removed 2 posters (they didn't have scans and were in poor visibility locations)
+- 3 posters were removed from Proksa Park; I added some replacements
+  - Assuming this is due to Berwyn's [30 day poster policy](https://codelibrary.amlegal.com/codes/berwyn/latest/berwyn_il/0-0-0-42586).
+  - Proksa Park is the 'nice' park, the most well-maintained one I've seen in Berwyn.
+  - I care about this because Proksa Park got me a good amount of scans
+  - The replacement posters are on the doggy-poo posts this time, much less visible than before. RIP
+
+The new label system seems to be working okay so far with 1 caveat - the old labels need to be completely removed or else the new labels risk not sticking well and coming off with rain/high winds.
+  - I realized this pretty early on but some of the initial replacements I did near my house lost some replacement stickers. Luckily the posters furthest away should be fine.
+
+Scans keep trickling in, usually ~0 - 2 per day now. I expect to reach a total of 200+ scans by the end of the month.
+
+#### Reflections
+
+The people who would scan would be:
+
+- Someone who goes on walks
+- Someone willing to engage with random posters
+- Someone who knows how to use a QR code
+- Someone who is a homeowner in Berwyn
+- Someone who needs/wants a new tree 
+
+So there is a limited pool of people to engage with.
+Year-over-year the pool can change due to new people moving in.
+
+I could probably gain significant boosts by putting posters in some areas of Berwyn I haven't visited, but I want to be conservative with the amount of posters I'm maintaining. 
+
+I got about 30 left, but I think I will keep them for next year's **iterative** effort and reflect on improvements. I'm no Data Scientist(? I think?) but perhaps I can derive some new insights.
 
 ### May Update
 
