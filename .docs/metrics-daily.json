@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-05T07:27:05.435Z",
+  "generatedAt": "2026-07-06T08:21:53.086Z",
   "calendar": "America/Chicago",
-  "centralToday": "2026-07-05",
+  "centralToday": "2026-07-06",
   "note": "Cumulative totals per America/Chicago calendar day. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.",
-  "eventCount": 268,
-  "dayCount": 62,
+  "eventCount": 272,
+  "dayCount": 63,
   "days": [
     {
       "calendar_day": "2026-05-05",
@@ -315,7 +315,12 @@
     {
       "calendar_day": "2026-07-05",
       "labels": 95,
-      "scans": 173
+      "scans": 177
+    },
+    {
+      "calendar_day": "2026-07-06",
+      "labels": 95,
+      "scans": 177
     }
   ]
 }
