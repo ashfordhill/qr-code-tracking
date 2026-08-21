@@ -1,9 +1,13 @@
--- Poster + scan events for the growth chart.
--- A poster can have several labels rows (QR replacements share poster_id), so
--- counting raw labels rows overstates the poster count. Mirror the metrics
--- site's definition (worker getAllPostersDeduped): one poster per
--- COALESCE(poster_id, id), representative row prefers non-disabled then newest,
--- and a poster is uninstalled when that row's uninstalled_at is set.
+/*
+  Poster + scan events for the growth chart.
+  A poster can have several labels rows (QR replacements share poster_id), so
+  counting raw labels rows overstates the poster count. Mirror the metrics
+  site's definition (worker getAllPostersDeduped): one poster per
+  COALESCE(poster_id, id), representative row prefers non-disabled then newest,
+  and a poster is uninstalled when that row's uninstalled_at is set.
+  Block comment on purpose: this file is passed as `wrangler --command "$SQL"`,
+  and a leading `--` line would be parsed as a CLI flag.
+*/
 WITH ranked AS (
   SELECT
     l.*,
