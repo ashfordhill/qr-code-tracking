@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-21T04:13:50.754Z",
+  "generatedAt": "2026-08-21T04:38:40.521Z",
   "calendar": "America/Chicago",
   "centralToday": "2026-08-20",
   "note": "Per America/Chicago calendar day: posters = net installed posters (installs minus uninstalls, one per poster_id — QR replacements do not add), scans = cumulative. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.",
