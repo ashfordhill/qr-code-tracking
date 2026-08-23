@@ -1,11 +1,11 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-22T04:32:55.767Z",
+  "generatedAt": "2026-08-23T04:37:34.433Z",
   "calendar": "America/Chicago",
-  "centralToday": "2026-08-21",
+  "centralToday": "2026-08-22",
   "note": "Per America/Chicago calendar day: posters = net installed posters (installs minus uninstalls, one per poster_id — QR replacements do not add), scans = cumulative. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.",
   "eventCount": 389,
-  "dayCount": 109,
+  "dayCount": 110,
   "days": [
     {
       "calendar_day": "2026-05-05",
@@ -549,6 +549,11 @@
     },
     {
       "calendar_day": "2026-08-21",
+      "posters": 57,
+      "scans": 256
+    },
+    {
+      "calendar_day": "2026-08-22",
       "posters": 57,
       "scans": 256
     }
