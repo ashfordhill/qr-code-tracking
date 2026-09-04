@@ -1,311 +1,591 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-07-03T07:21:34.143Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-28T15:56:57.494Z",
   "calendar": "America/Chicago",
-  "centralToday": "2026-07-03",
-  "note": "Cumulative totals per America/Chicago calendar day. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.",
-  "eventCount": 265,
-  "dayCount": 60,
+  "centralToday": "2026-08-28",
+  "note": "Per America/Chicago calendar day: posters = net installed posters (installs minus uninstalls, one per poster_id — QR replacements do not add), scans = cumulative. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.",
+  "eventCount": 390,
+  "dayCount": 116,
   "days": [
     {
       "calendar_day": "2026-05-05",
-      "labels": 15,
+      "posters": 15,
       "scans": 2
     },
     {
       "calendar_day": "2026-05-06",
-      "labels": 22,
+      "posters": 22,
       "scans": 4
     },
     {
       "calendar_day": "2026-05-07",
-      "labels": 22,
+      "posters": 22,
       "scans": 7
     },
     {
       "calendar_day": "2026-05-08",
-      "labels": 38,
+      "posters": 38,
       "scans": 9
     },
     {
       "calendar_day": "2026-05-09",
-      "labels": 38,
+      "posters": 38,
       "scans": 19
     },
     {
       "calendar_day": "2026-05-10",
-      "labels": 56,
+      "posters": 56,
       "scans": 28
     },
     {
       "calendar_day": "2026-05-11",
-      "labels": 56,
+      "posters": 56,
       "scans": 40
     },
     {
       "calendar_day": "2026-05-12",
-      "labels": 56,
+      "posters": 56,
       "scans": 49
     },
     {
       "calendar_day": "2026-05-13",
-      "labels": 56,
+      "posters": 56,
       "scans": 57
     },
     {
       "calendar_day": "2026-05-14",
-      "labels": 76,
+      "posters": 76,
       "scans": 68
     },
     {
       "calendar_day": "2026-05-15",
-      "labels": 76,
+      "posters": 76,
       "scans": 73
     },
     {
       "calendar_day": "2026-05-16",
-      "labels": 76,
+      "posters": 76,
       "scans": 80
     },
     {
       "calendar_day": "2026-05-17",
-      "labels": 76,
+      "posters": 76,
       "scans": 83
     },
     {
       "calendar_day": "2026-05-18",
-      "labels": 76,
+      "posters": 76,
       "scans": 88
     },
     {
       "calendar_day": "2026-05-19",
-      "labels": 76,
+      "posters": 76,
       "scans": 89
     },
     {
       "calendar_day": "2026-05-20",
-      "labels": 76,
+      "posters": 76,
       "scans": 97
     },
     {
       "calendar_day": "2026-05-21",
-      "labels": 76,
+      "posters": 76,
       "scans": 103
     },
     {
       "calendar_day": "2026-05-22",
-      "labels": 76,
+      "posters": 76,
       "scans": 106
     },
     {
       "calendar_day": "2026-05-23",
-      "labels": 76,
+      "posters": 76,
       "scans": 110
     },
     {
       "calendar_day": "2026-05-24",
-      "labels": 76,
+      "posters": 76,
       "scans": 111
     },
     {
       "calendar_day": "2026-05-25",
-      "labels": 76,
+      "posters": 76,
       "scans": 112
     },
     {
       "calendar_day": "2026-05-26",
-      "labels": 76,
+      "posters": 76,
       "scans": 114
     },
     {
       "calendar_day": "2026-05-27",
-      "labels": 76,
+      "posters": 76,
       "scans": 114
     },
     {
       "calendar_day": "2026-05-28",
-      "labels": 76,
+      "posters": 76,
       "scans": 114
     },
     {
       "calendar_day": "2026-05-29",
-      "labels": 76,
+      "posters": 76,
       "scans": 115
     },
     {
       "calendar_day": "2026-05-30",
-      "labels": 76,
+      "posters": 76,
       "scans": 118
     },
     {
       "calendar_day": "2026-05-31",
-      "labels": 76,
+      "posters": 76,
       "scans": 118
     },
     {
       "calendar_day": "2026-06-01",
-      "labels": 76,
+      "posters": 76,
       "scans": 118
     },
     {
       "calendar_day": "2026-06-02",
-      "labels": 76,
+      "posters": 76,
       "scans": 120
     },
     {
       "calendar_day": "2026-06-03",
-      "labels": 76,
+      "posters": 76,
       "scans": 121
     },
     {
       "calendar_day": "2026-06-04",
-      "labels": 76,
+      "posters": 76,
       "scans": 121
     },
     {
       "calendar_day": "2026-06-05",
-      "labels": 76,
+      "posters": 76,
       "scans": 124
     },
     {
       "calendar_day": "2026-06-06",
-      "labels": 79,
+      "posters": 79,
       "scans": 124
     },
     {
       "calendar_day": "2026-06-07",
-      "labels": 79,
+      "posters": 79,
       "scans": 125
     },
     {
       "calendar_day": "2026-06-08",
-      "labels": 79,
+      "posters": 79,
       "scans": 127
     },
     {
       "calendar_day": "2026-06-09",
-      "labels": 79,
+      "posters": 79,
       "scans": 130
     },
     {
       "calendar_day": "2026-06-10",
-      "labels": 88,
+      "posters": 88,
       "scans": 130
     },
     {
       "calendar_day": "2026-06-11",
-      "labels": 88,
+      "posters": 88,
       "scans": 133
     },
     {
       "calendar_day": "2026-06-12",
-      "labels": 88,
+      "posters": 88,
       "scans": 136
     },
     {
       "calendar_day": "2026-06-13",
-      "labels": 88,
+      "posters": 88,
       "scans": 139
     },
     {
       "calendar_day": "2026-06-14",
-      "labels": 88,
+      "posters": 88,
       "scans": 142
     },
     {
       "calendar_day": "2026-06-15",
-      "labels": 88,
+      "posters": 88,
       "scans": 145
     },
     {
       "calendar_day": "2026-06-16",
-      "labels": 88,
+      "posters": 88,
       "scans": 146
     },
     {
       "calendar_day": "2026-06-17",
-      "labels": 88,
+      "posters": 88,
       "scans": 146
     },
     {
       "calendar_day": "2026-06-18",
-      "labels": 88,
+      "posters": 88,
       "scans": 146
     },
     {
       "calendar_day": "2026-06-19",
-      "labels": 88,
+      "posters": 88,
       "scans": 146
     },
     {
       "calendar_day": "2026-06-20",
-      "labels": 88,
+      "posters": 88,
       "scans": 148
     },
     {
       "calendar_day": "2026-06-21",
-      "labels": 92,
+      "posters": 87,
       "scans": 148
     },
     {
       "calendar_day": "2026-06-22",
-      "labels": 92,
+      "posters": 87,
       "scans": 149
     },
     {
       "calendar_day": "2026-06-23",
-      "labels": 92,
+      "posters": 87,
       "scans": 152
     },
     {
       "calendar_day": "2026-06-24",
-      "labels": 92,
+      "posters": 87,
       "scans": 157
     },
     {
       "calendar_day": "2026-06-25",
-      "labels": 95,
+      "posters": 90,
       "scans": 157
     },
     {
       "calendar_day": "2026-06-26",
-      "labels": 95,
+      "posters": 90,
       "scans": 159
     },
     {
       "calendar_day": "2026-06-27",
-      "labels": 95,
+      "posters": 90,
       "scans": 163
     },
     {
       "calendar_day": "2026-06-28",
-      "labels": 95,
+      "posters": 89,
       "scans": 164
     },
     {
       "calendar_day": "2026-06-29",
-      "labels": 95,
+      "posters": 89,
       "scans": 167
     },
     {
       "calendar_day": "2026-06-30",
-      "labels": 95,
+      "posters": 89,
       "scans": 167
     },
     {
       "calendar_day": "2026-07-01",
-      "labels": 95,
+      "posters": 89,
       "scans": 168
     },
     {
       "calendar_day": "2026-07-02",
-      "labels": 95,
+      "posters": 89,
       "scans": 170
     },
     {
       "calendar_day": "2026-07-03",
-      "labels": 95,
+      "posters": 89,
       "scans": 170
+    },
+    {
+      "calendar_day": "2026-07-04",
+      "posters": 89,
+      "scans": 173
+    },
+    {
+      "calendar_day": "2026-07-05",
+      "posters": 89,
+      "scans": 177
+    },
+    {
+      "calendar_day": "2026-07-06",
+      "posters": 89,
+      "scans": 179
+    },
+    {
+      "calendar_day": "2026-07-07",
+      "posters": 89,
+      "scans": 184
+    },
+    {
+      "calendar_day": "2026-07-08",
+      "posters": 89,
+      "scans": 188
+    },
+    {
+      "calendar_day": "2026-07-09",
+      "posters": 89,
+      "scans": 190
+    },
+    {
+      "calendar_day": "2026-07-10",
+      "posters": 89,
+      "scans": 196
+    },
+    {
+      "calendar_day": "2026-07-11",
+      "posters": 89,
+      "scans": 199
+    },
+    {
+      "calendar_day": "2026-07-12",
+      "posters": 89,
+      "scans": 201
+    },
+    {
+      "calendar_day": "2026-07-13",
+      "posters": 89,
+      "scans": 206
+    },
+    {
+      "calendar_day": "2026-07-14",
+      "posters": 89,
+      "scans": 208
+    },
+    {
+      "calendar_day": "2026-07-15",
+      "posters": 89,
+      "scans": 214
+    },
+    {
+      "calendar_day": "2026-07-16",
+      "posters": 89,
+      "scans": 215
+    },
+    {
+      "calendar_day": "2026-07-17",
+      "posters": 89,
+      "scans": 217
+    },
+    {
+      "calendar_day": "2026-07-18",
+      "posters": 89,
+      "scans": 219
+    },
+    {
+      "calendar_day": "2026-07-19",
+      "posters": 89,
+      "scans": 227
+    },
+    {
+      "calendar_day": "2026-07-20",
+      "posters": 89,
+      "scans": 230
+    },
+    {
+      "calendar_day": "2026-07-21",
+      "posters": 89,
+      "scans": 231
+    },
+    {
+      "calendar_day": "2026-07-22",
+      "posters": 89,
+      "scans": 232
+    },
+    {
+      "calendar_day": "2026-07-23",
+      "posters": 89,
+      "scans": 234
+    },
+    {
+      "calendar_day": "2026-07-24",
+      "posters": 89,
+      "scans": 234
+    },
+    {
+      "calendar_day": "2026-07-25",
+      "posters": 89,
+      "scans": 236
+    },
+    {
+      "calendar_day": "2026-07-26",
+      "posters": 89,
+      "scans": 238
+    },
+    {
+      "calendar_day": "2026-07-27",
+      "posters": 89,
+      "scans": 238
+    },
+    {
+      "calendar_day": "2026-07-28",
+      "posters": 89,
+      "scans": 239
+    },
+    {
+      "calendar_day": "2026-07-29",
+      "posters": 89,
+      "scans": 240
+    },
+    {
+      "calendar_day": "2026-07-30",
+      "posters": 89,
+      "scans": 240
+    },
+    {
+      "calendar_day": "2026-07-31",
+      "posters": 89,
+      "scans": 241
+    },
+    {
+      "calendar_day": "2026-08-01",
+      "posters": 89,
+      "scans": 242
+    },
+    {
+      "calendar_day": "2026-08-02",
+      "posters": 89,
+      "scans": 244
+    },
+    {
+      "calendar_day": "2026-08-03",
+      "posters": 89,
+      "scans": 244
+    },
+    {
+      "calendar_day": "2026-08-04",
+      "posters": 89,
+      "scans": 245
+    },
+    {
+      "calendar_day": "2026-08-05",
+      "posters": 89,
+      "scans": 246
+    },
+    {
+      "calendar_day": "2026-08-06",
+      "posters": 89,
+      "scans": 250
+    },
+    {
+      "calendar_day": "2026-08-07",
+      "posters": 89,
+      "scans": 250
+    },
+    {
+      "calendar_day": "2026-08-08",
+      "posters": 89,
+      "scans": 252
+    },
+    {
+      "calendar_day": "2026-08-09",
+      "posters": 89,
+      "scans": 253
+    },
+    {
+      "calendar_day": "2026-08-10",
+      "posters": 89,
+      "scans": 254
+    },
+    {
+      "calendar_day": "2026-08-11",
+      "posters": 89,
+      "scans": 254
+    },
+    {
+      "calendar_day": "2026-08-12",
+      "posters": 89,
+      "scans": 254
+    },
+    {
+      "calendar_day": "2026-08-13",
+      "posters": 89,
+      "scans": 254
+    },
+    {
+      "calendar_day": "2026-08-14",
+      "posters": 89,
+      "scans": 255
+    },
+    {
+      "calendar_day": "2026-08-15",
+      "posters": 89,
+      "scans": 255
+    },
+    {
+      "calendar_day": "2026-08-16",
+      "posters": 89,
+      "scans": 255
+    },
+    {
+      "calendar_day": "2026-08-17",
+      "posters": 77,
+      "scans": 255
+    },
+    {
+      "calendar_day": "2026-08-18",
+      "posters": 77,
+      "scans": 255
+    },
+    {
+      "calendar_day": "2026-08-19",
+      "posters": 57,
+      "scans": 255
+    },
+    {
+      "calendar_day": "2026-08-20",
+      "posters": 57,
+      "scans": 256
+    },
+    {
+      "calendar_day": "2026-08-21",
+      "posters": 57,
+      "scans": 256
+    },
+    {
+      "calendar_day": "2026-08-22",
+      "posters": 57,
+      "scans": 256
+    },
+    {
+      "calendar_day": "2026-08-23",
+      "posters": 57,
+      "scans": 257
+    },
+    {
+      "calendar_day": "2026-08-24",
+      "posters": 57,
+      "scans": 257
+    },
+    {
+      "calendar_day": "2026-08-25",
+      "posters": 57,
+      "scans": 257
+    },
+    {
+      "calendar_day": "2026-08-26",
+      "posters": 57,
+      "scans": 257
+    },
+    {
+      "calendar_day": "2026-08-27",
+      "posters": 57,
+      "scans": 257
+    },
+    {
+      "calendar_day": "2026-08-28",
+      "posters": 57,
+      "scans": 257
     }
   ]
 }

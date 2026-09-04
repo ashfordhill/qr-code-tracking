@@ -13,7 +13,8 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { compile } from 'vega-lite';
 import * as vega from 'vega';
 
-const METRICS_SCHEMA_VERSION = 1;
+const METRICS_SCHEMA_VERSION = 2;
+const LEGACY_SCHEMA_VERSION = 1;
 const CHICAGO_TZ = 'America/Chicago';
 
 /** Wrangler may print spinners before the JSON array; strip and parse. */
@@ -65,7 +66,10 @@ function chicagoTodayIso() {
   return chicagoCalendarDay(new Date().toISOString());
 }
 
-/** Rows from metrics.sql: { kind: 'label'|'scan', at: ISO string }. */
+/**
+ * Rows from metrics.sql: { kind: 'poster_installed'|'poster_uninstalled'|'scan', at: ISO string }.
+ * Legacy 'label' rows (pre-poster-lineage query) are treated as installs.
+ */
 function extractEventsFromWrangler(wranglerJsonPath) {
   const raw = readFileSync(wranglerJsonPath, 'utf8');
   const data = parseWranglerJsonArray(raw);
@@ -75,8 +79,9 @@ function extractEventsFromWrangler(wranglerJsonPath) {
     if (!batch?.results || !Array.isArray(batch.results)) continue;
     for (const row of batch.results) {
       if (!row?.at) continue;
-      const kind = String(row.kind ?? '').toLowerCase();
-      if (kind !== 'label' && kind !== 'scan') {
+      let kind = String(row.kind ?? '').toLowerCase();
+      if (kind === 'label') kind = 'poster_installed';
+      if (kind !== 'poster_installed' && kind !== 'poster_uninstalled' && kind !== 'scan') {
         throw new Error(`Unexpected kind in D1 row: ${row.kind}`);
       }
       events.push({ kind, at: String(row.at) });
@@ -84,7 +89,7 @@ function extractEventsFromWrangler(wranglerJsonPath) {
   }
   if (events.length === 0) {
     throw new Error(
-      'No label/scan events in wrangler JSON. For remote SELECTs use `wrangler d1 execute --command` (not `--file`).',
+      'No poster/scan events in wrangler JSON. For remote SELECTs use `wrangler d1 execute --command` (not `--file`).',
     );
   }
   return events;
@@ -130,16 +135,18 @@ function minIso(a, b) {
  * (or through last event day in --fixture mode). Cumulative = COUNT(*) through end of that day.
  */
 function buildDailyCumulativeFromEvents(events, fixtureMode) {
-  const labelDays = [];
+  const installDays = [];
+  const uninstallDays = [];
   const scanDays = [];
   for (const e of events) {
     const day = chicagoCalendarDay(e.at);
-    if (e.kind === 'label') labelDays.push(day);
+    if (e.kind === 'poster_installed') installDays.push(day);
+    else if (e.kind === 'poster_uninstalled') uninstallDays.push(day);
     else scanDays.push(day);
   }
-  if (labelDays.length === 0 && scanDays.length === 0) return [];
+  if (installDays.length === 0 && scanDays.length === 0) return [];
 
-  const allEventDays = [...labelDays, ...scanDays].sort();
+  const allEventDays = [...installDays, ...uninstallDays, ...scanDays].sort();
   const first = allEventDays[0];
   const lastEvent = allEventDays[allEventDays.length - 1];
   const centralToday = chicagoTodayIso();
@@ -149,15 +156,18 @@ function buildDailyCumulativeFromEvents(events, fixtureMode) {
   const wide = [];
   for (const day of eachIsoDayInclusive(start, end)) {
     assertIsoDate(day);
-    let labels = 0;
+    let posters = 0;
     let scans = 0;
-    for (const d of labelDays) {
-      if (d <= day) labels++;
+    for (const d of installDays) {
+      if (d <= day) posters++;
+    }
+    for (const d of uninstallDays) {
+      if (d <= day) posters--;
     }
     for (const d of scanDays) {
       if (d <= day) scans++;
     }
-    wide.push({ calendar_day: day, labels, scans });
+    wide.push({ calendar_day: day, posters, scans });
   }
   return wide;
 }
@@ -166,9 +176,12 @@ function buildDailyCumulativeFromEvents(events, fixtureMode) {
 function readMetricsDailyJson(jsonPath) {
   const raw = readFileSync(jsonPath, 'utf8');
   const data = JSON.parse(raw);
-  if (data.schemaVersion !== METRICS_SCHEMA_VERSION) {
+  if (
+    data.schemaVersion !== METRICS_SCHEMA_VERSION &&
+    data.schemaVersion !== LEGACY_SCHEMA_VERSION
+  ) {
     throw new Error(
-      `Unsupported metrics JSON schemaVersion (expected ${METRICS_SCHEMA_VERSION}).`,
+      `Unsupported metrics JSON schemaVersion (expected ${METRICS_SCHEMA_VERSION} or ${LEGACY_SCHEMA_VERSION}).`,
     );
   }
   if (!Array.isArray(data.days) || data.days.length === 0) {
@@ -177,16 +190,19 @@ function readMetricsDailyJson(jsonPath) {
   const wide = [];
   for (const row of data.days) {
     const day = normalizeCalendarDay(row.calendar_day);
-    const labels =
-      row.labels !== undefined
-        ? Number(row.labels)
-        : reqNum(row, 'labels_cumulative', day);
+    // v2 uses "posters"; v1 files used "labels"/"labels_cumulative" (raw label rows).
+    const posters =
+      row.posters !== undefined
+        ? Number(row.posters)
+        : row.labels !== undefined
+          ? Number(row.labels)
+          : reqNum(row, 'labels_cumulative', day);
     const scans =
       row.scans !== undefined ? Number(row.scans) : reqNum(row, 'scans_cumulative', day);
-    if (Number.isNaN(labels) || Number.isNaN(scans)) {
+    if (Number.isNaN(posters) || Number.isNaN(scans)) {
       throw new Error(`Invalid numbers for ${day}`);
     }
-    wide.push({ calendar_day: day, labels, scans });
+    wide.push({ calendar_day: day, posters, scans });
   }
   wide.sort((a, b) => a.calendar_day.localeCompare(b.calendar_day));
   return wide;
@@ -199,12 +215,12 @@ function writeMetricsDailyJson(wide, eventCount, jsonPath) {
     calendar: CHICAGO_TZ,
     centralToday: chicagoTodayIso(),
     note:
-      'Cumulative totals per America/Chicago calendar day. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.',
+      'Per America/Chicago calendar day: posters = net installed posters (installs minus uninstalls, one per poster_id — QR replacements do not add), scans = cumulative. Nightly workflow should run ~22:00 Central (04:00 UTC) so the chart includes through that local day, not an early UTC tomorrow.',
     eventCount,
     dayCount: wide.length,
     days: wide.map((d) => ({
       calendar_day: d.calendar_day,
-      labels: d.labels,
+      posters: d.posters,
       scans: d.scans,
     })),
   };
@@ -213,7 +229,7 @@ function writeMetricsDailyJson(wide, eventCount, jsonPath) {
 
 function buildSpec(wide) {
   const last = wide[wide.length - 1];
-  const caption = `Latest (Central): ${last.labels} labels · ${last.scans} scans · through ${last.calendar_day}`;
+  const caption = `Latest (Central): ${last.posters} posters · ${last.scans} scans · through ${last.calendar_day}`;
   const sameYear =
     wide.length > 0 &&
     wide[0].calendar_day.slice(0, 4) === wide[wide.length - 1].calendar_day.slice(0, 4);
@@ -243,9 +259,9 @@ function buildSpec(wide) {
     padding: { left: 8, right: 24, top: 8, bottom: 8 },
     data: { values: wide },
     transform: [
-      { fold: ['labels', 'scans'], as: ['metric', 'v'] },
+      { fold: ['posters', 'scans'], as: ['metric', 'v'] },
       {
-        calculate: "datum.metric == 'labels' ? 'Labels' : 'Scans'",
+        calculate: "datum.metric == 'posters' ? 'Posters' : 'Scans'",
         as: 'series',
       },
     ],
@@ -262,7 +278,7 @@ function buildSpec(wide) {
         field: 'series',
         type: 'nominal',
         title: '',
-        scale: { domain: ['Labels', 'Scans'], range: ['#7c3aed', '#15803d'] },
+        scale: { domain: ['Posters', 'Scans'], range: ['#7c3aed', '#15803d'] },
         legend: {
           orient: 'top',
           direction: 'horizontal',
