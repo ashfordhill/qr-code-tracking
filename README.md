@@ -8,6 +8,16 @@
 - [qr-code-tracking](#qr-code-tracking)
   - [Design](#design)
   - [2026](#2026)
+    - [September Update](#september-update)
+      - [Project-Specific Thoughts](#project-specific-thoughts)
+        - [UV Damage is a Beast](#uv-damage-is-a-beast)
+        - [Data Highlights](#data-highlights)
+          - [Strong Engagement Areas](#strong-engagement-areas)
+          - [Weak Engagement Areas](#weak-engagement-areas)
+        - [Next Year's Efforts](#next-years-efforts)
+    - [Big Picture Thoughts](#big-picture-thoughts)
+        - [Berwyn's Layers of Systemic Problems](#berwyns-layers-of-systemic-problems)
+        - [Berwyn's Future](#berwyns-future)
     - [July Update](#july-update)
       - [The Birds and the Trees](#the-birds-and-the-trees)
       - [2026 Weather is Crazyyy](#2026-weather-is-crazyyy)
@@ -41,6 +51,101 @@
 ![](.docs/server-db-to-metrics.svg)
 
 ## 2026
+
+### September Update
+
+I've started to take down my posters for the season.
+
+  - I installed 89 posters,
+  - I got 257 scans recorded total
+  - I've disabled the daily GitHub Actions workflow
+
+#### Project-Specific Thoughts
+
+##### UV Damage is a Beast
+
+The reprinted labels that were re-installed with UV protection spray eventually started to fade from UV damage, particularly in areas that get full sun most of the day. The spray helped longevity by around 6 - 8 weeks, but it's still not strong enough to last a full summer.
+
+I'm trialling a UV film and have left 1 poster up with this film to see if it'll do better than the spray.
+
+
+<p align="center">
+  <img src=".docs/label-with-film.JPEG"  width="300" />
+</p>
+<div align="center"><em><a href="https://www.reddit.com/r/FeatherIdentification/comments/1uj4tpg/who_did_this_little_guy_belong_to_western_illinois/">UV protectant film</a> on trial</em></div>
+
+---
+
+If UV protection fails again, for next year's efforts I'll need to consider using a more expensive type of printer: laser or thermal transfer that uses resin/wax. 
+
+##### Data Highlights
+
+<div align="center">
+  <img src=".docs/hotspots-2026.svg" width="350" />
+</div>
+
+
+###### Strong Engagement Areas
+
+- Community-related buildings
+- Bigger parks
+
+###### Weak Engagement Areas
+
+- Schools
+- Churches
+- Bus stops
+- Smaller parks
+- Random spots on streets, even near businesses
+
+##### Next Year's Efforts
+
+A major change for next year's efforts will be to either partly or fully use my posters to advertise the BTCI meetings. The mailing list has a couple hundred folks but the regular attendees are only a group of ~10. Getting more people involved would probably have the biggest impact. More on this below.
+
+### Big Picture Thoughts
+
+<table>
+  <tr>
+    <td align="center" valign="top" width="33%">
+      <img src=".docs/chopping-block-1.JPEG" width="240" />
+    </td>
+    <td align="center" valign="top" width="34%">
+      <img src=".docs/chopping-block-2.JPEG" width="240" />
+    </td>
+    <td align="center" valign="top" width="33%">
+      <img src=".docs/chopping-block-3.JPEG" width="240" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center"><em>On the choppin' block</em></td>
+  </tr>
+</table>
+
+##### Berwyn's Layers of Systemic Problems
+
+As of the recent BTCI meeting, I've learned that we've had 3 arborists quit this year (Berwyn only employs 1 arborist at a time). While Berwyn attempts to fill this role once again, tree maintenance is not happening. This means that no matter how many tree signups we get, they will simply enter a longstanding queue behind other more pressing work such as tree removals, inspections and pruning. 
+
+I know there have been huffs and gripes about the current major, who has been around for several terms and will likely continue to retirement. There are whisperings of perhaps not fairly allocated resources in the city. There is still $75,000 of grant money for trees that goes unaccounted for from several years ago, an issue most residents don't know anything about. Most residents also don't know that we haven't had an arborist for most of the year.
+
+##### Berwyn's Future
+
+
+It's possible that the Great Lakes area will experience population increases in coming years. The Great Lakes house the vast majority of fresh water in the United Status. Being close to inland water helps mitigate the effects of climate change for residents. For example, it's been an extremely wet year for us while many other cities have experienced droughts during this El Niño. The winters here have been growing milder as well.
+
+<div align="center">
+  <img src=".docs/skipper-hotel.JPG" width="300" />
+</div>
+
+The future I see will eventually address problems like Berwyn's tree situation mostly from demographic shift. Gentrification is one possible result of supply and demand issues in housing markets and it's possible that it could occur here. 
+
+That doesn't mean people should give up on the tree efforts of today - far from. Any tree that we can get planted today will help build a better tomorrow. But fighting a small political war like some of the residents have been doing can be futile, and even discouraging. 
+
+Some tree people want to go through the right channels to have official change and to hold small government offices accountable. I have a slight disagreement with these members; changing the minds of a political administration is a tall order. 
+
+I think community-fueled plantings are the best use of time, and growing our community of tree-informed residents would lead to the biggest impact under current circumstances. It'll be interesting to see how things look a few years from now.
+
+---
+---
 
 ### July Update
 
@@ -154,6 +259,9 @@ Year-over-year the pool can change due to new people moving in.
 I could probably gain significant boosts by putting posters in some areas of Berwyn I haven't visited, but I want to be conservative with the amount of posters I'm maintaining. 
 
 I got about 30 left, but I think I will keep them for next year's **iterative** effort and reflect on improvements. I'm no Data Scientist(? I think?) but perhaps I can derive some new insights.
+
+---
+---
 
 ### May Update
 
