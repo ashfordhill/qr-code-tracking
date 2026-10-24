@@ -52,6 +52,41 @@
 
 ## 2026
 
+### October Update
+
+#### Tree People
+
+This month we finally had our first official Berwyn Tree Board meeting. 
+
+  - 🎥 A full video recording can be seen [here](https://boxcast.tv/view/102126---berwyn-tree-board-meeting-zq1aobuqselutmeohk2g)
+  - 📝 [Meeting notes](.docs/TreeBoardMinutesOctober2026.docx); this will be publically available online once processed through the Berwyn City Clerk.
+
+It was really useful to get information from the arborist Alfredo - rumors and misinformation have circled around the Berwyn tree group in the absernce of information directly from the arborist(s). 
+
+#### Posters
+
+It hasn't been long enough to say for sure but I think the QR code is holding up well under the UV protectant film. I'm curious to see how it will look like another month or 2 from now.
+
+<div align="center">
+  <img src=".docs/label-with-film-10-23.JPEG" width="350" />
+</div>
+
+Even if the protectant film can't hold out for the whole summer, with my electric scooter I'm more willing to do some label replacements again. Doing it on foot sucked.
+
+Regardless, my January 2027 poster strategy will focus on trying to recruit people to the Berwyn Tree Canopy Initiative volunteer group meetings, which happen monthly.
+
+The new posters will advertise snacks, coloring for kids (a well-meaning resident once brought her 3 young children who were very bored), plant giveaways (it's a stretch but hey) and a good 'ole time. Even 1 more regular member could have a huge impact in the long-term.
+
+<div align="center">
+  <img src=".docs/goodies.JPEG" width="350" />
+</div>
+
+I've also started to experiment with leaving temporary street signs nearby on the day of meetings, in hopes of getting some spontaneous stragglers to pop in. I freehanded this one and added some battery-powered LED lights; the boards are a bit small though so I might get some bigger ones.
+
+<div align="center">
+  <img src=".docs/join-us-poster.JPEG" width="350" />
+</div>
+
 ### September Update
 
 I've started to take down my posters for the season.
